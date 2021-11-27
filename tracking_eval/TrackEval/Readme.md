@@ -1,4 +1,8 @@
+# TrackEval on JRDB:
 
+We deleted some code that is not used in our evaluation, added OSPA metric and 3D tracking evaluations. 
+
+# ----------------------README from original [TrackEval](https://github.com/JonathonLuiten/TrackEval)
 # TrackEval
 *Code for evaluating object tracking.*
 
