@@ -1074,7 +1074,7 @@ def visualise_jrdb(submission_path,sub_type,seqs):
     fourcc = cv2.VideoWriter_fourcc('V','P','8','0') # FourCC is a 4-byte code used to specify the video codec.
     width = 3760
     height = 480
-    gt_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/images/image_stitched/'
+    # gt_dir=''
     label_dir=os.path.join(submission_path.replace('.zip',''),'CIWT','data')
     # /pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dt/2021-12-07 04:20:42+00:00_inyoung/
     # /pvol2/jrdb_dev/jrdb_website_dev/static/videos/leaderboards_videos/
@@ -1159,7 +1159,7 @@ def visualise_jrdb_3d(submission_path,sub_type,seqs):
     fourcc = cv2.VideoWriter_fourcc('V','P','8','0') # FourCC is a 4-byte code used to specify the video codec.
     width = 900
     height = 500
-    gt_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/pointclouds/'
+    # gt_dir=''
     gt_image_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/images/image_stitched/'
     label_dir=os.path.join(submission_path.replace('.zip',''),'CIWT','data')
     submission_path=submission_path.replace('.zip','')
@@ -1194,7 +1194,7 @@ def visualise_jrdb_det(submission_path,sub_type,seqs):
     fourcc = cv2.VideoWriter_fourcc('V','P','8','0') # FourCC is a 4-byte code used to specify the video codec.
     width = 3760
     height = 480
-    gt_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/images/image_stitched/'
+    # gt_dir=''
     submission_path=submission_path.replace('.zip','')
     #video_dir=submission_path.replace('media/submissions','static/videos/leaderboards_videos')
     video_dir='./'
@@ -1275,7 +1275,7 @@ def visualise_jrdb_3d_det(submission_path,sub_type,seqs,old_submission=None):
     fourcc = cv2.VideoWriter_fourcc('V','P','8','0') # FourCC is a 4-byte code used to specify the video codec.
     width = 900
     height = 500
-    gt_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/pointclouds/'
+    # gt_dir=''
     gt_image_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/images/image_stitched/'
     
     if old_submission==None:
@@ -1462,7 +1462,7 @@ def visualise_jrdb_group(submission_path,sub_type,seqs,is_evaluated_all):
     fourcc = cv2.VideoWriter_fourcc('V','P','8','0') # FourCC is a 4-byte code used to specify the video codec.
     width = 3760
     height = 480
-    gt_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/images/image_stitched/'
+    # gt_dir=''
     label_dir=submission_path.replace('.zip','')
     submission_path=submission_path.replace('.zip','')
     video_dir=submission_path.replace('media/submissions','static/videos/leaderboards_videos')
@@ -1509,7 +1509,7 @@ def visualise_jrdb_action(submission_path,sub_type,seqs,is_evaluated_all):
     fourcc = cv2.VideoWriter_fourcc('V','P','8','0') # FourCC is a 4-byte code used to specify the video codec.
     width = 3760
     height = 480+113
-    gt_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/images/image_stitched/'
+    # gt_dir=''
     label_dir=submission_path.replace('.zip','')
     submission_path=submission_path.replace('.zip','')
     video_dir=submission_path.replace('media/submissions','static/videos/leaderboards_videos')
@@ -1558,7 +1558,7 @@ def visualise_jrdb_activity(submission_path,sub_type,seqs,is_evaluated_all):
     fourcc = cv2.VideoWriter_fourcc('V','P','8','0') # FourCC is a 4-byte code used to specify the video codec.
     width = 3760
     height = 480+113
-    gt_dir='/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_test/test_dataset_without_labels/images/image_stitched/'
+    # gt_dir=''
     label_dir=submission_path.replace('.zip','')
     submission_path=submission_path.replace('.zip','')
     video_dir=submission_path.replace('media/submissions','static/videos/leaderboards_videos')
@@ -1695,30 +1695,5 @@ def calculate_median_param_value( param):
         parameter_list.append(float(K_matrix[idx]))
     return np.median(parameter_list)
 if __name__ == "__main__":
-    #visualise_jrdb_3d_main('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dt/2021-12-02 13:19:16+00:00_ab3dmot2','3dt',seqs=['outdoor-coupa-cafe-2019-02-06_0'])
-    #visualise_jrdb_group('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/mahsa.ehsanpour@adelaide.edu.au/group/2021-12-01 00:36:41+00:00_det_group/','group',seqs=['outdoor-coupa-cafe-2019-02-06_0'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-07 04:29:27+00:00_T_HJ/','2dd',seqs=['hewlett-class-2019-01-23_1','hewlett-class-2019-01-23_0','gates-foyer-2019-01-17_0	','outdoor-coupa-cafe-2019-02-06_0','serra-street-2019-01-30_0','meyer-green-2019-03-16_1'])
-    #visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-07 04:58:55+00:00_MMPAT_CVPR21/','2dd',seqs=['meyer-green-2019-03-16_1','tressider-2019-04-26_0','outdoor-coupa-cafe-2019-02-06_0','hewlett-class-2019-01-23_1','stlc-111-2019-04-19_2','gates-foyer-2019-01-17_0'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-16 11:28:11+00:00_TEAM_TJ/','2dd',seqs=['hewlett-class-2019-01-23_1','hewlett-class-2019-01-23_0','stlc-111-2019-04-19_2','meyer-green-2019-03-16_1','outdoor-coupa-cafe-2019-02-06_0','serra-street-2019-01-30_0'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-12 10:15:35+00:00_TEAM_Hojun/','2dd',seqs=['meyer-green-2019-03-16_1','serra-street-2019-01-30_0','outdoor-coupa-cafe-2019-02-06_0','hewlett-class-2019-01-23_1','hewlett-class-2019-01-23_0','gates-foyer-2019-01-17_0'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-12 10:17:24+00:00_TEST_KKANG/','2dd',seqs=['meyer-green-2019-03-16_1','tressider-2019-04-26_0','serra-street-2019-01-30_0','hewlett-class-2019-01-23_1','stlc-111-2019-04-19_2','hewlett-class-2019-01-23_0'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-16 11:33:02+00:00_jrdb-faster-rcnn/','2dd',seqs=['hewlett-class-2019-01-23_1','hewlett-class-2019-01-23_0','gates-foyer-2019-01-17_0','meyer-green-2019-03-16_1','outdoor-coupa-cafe-2019-02-06_0','tressider-2019-04-26_0'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-12 10:22:04+00:00_jrdb-retina/','2dd',seqs=['outdoor-coupa-cafe-2019-02-06_0','meyer-green-2019-03-16_1','tressider-2019-03-16_2','hewlett-class-2019-01-23_1','gates-foyer-2019-01-17_0','hewlett-class-2019-01-23_0'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-12 10:19:43+00:00_DETR/','2dd',seqs=['serra-street-2019-01-30_0','meyer-green-2019-03-16_1','nvidia-aud-2019-04-18_2','hewlett-class-2019-01-23_0','stlc-111-2019-04-19_1','hewlett-class-2019-01-23_1'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-12 10:23:46+00:00_jrdb-yolo/','2dd',seqs=['nvidia-aud-2019-04-18_2','serra-street-2019-01-30_0','tressider-2019-04-26_0','hewlett-class-2019-01-23_1','gates-foyer-2019-01-17_0','nvidia-aud-2019-04-18_1'])
-    # visualise_jrdb_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/2dd/2021-12-12 10:24:34+00:00_jihoo_S2/','2dd',seqs=['tressider-2019-04-26_1','food-trucks-2019-02-12_0','tressider-2019-04-26_3','serra-street-2019-01-30_0','gates-to-clark-2019-02-28_0','quarry-road-2019-02-28_0'])
-
-    #visualise_jrdb_activity('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/mahsa.ehsanpour@adelaide.edu.au/activity/2021-12-01 00:38:27+00:00_det_activity/','activity',seqs=['outdoor-coupa-cafe-2019-02-06_0'],is_evaluated_all=dict())
-    #visualise_jrdb_3d('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dt/2021-12-02 13:19:16+00:00_ab3dmot2','3dt',seqs=['discovery-walk-2019-02-28_0'])
-    # visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 12:32:56+00:00_EPNET++','3dd',seqs=['hewlett-class-2019-01-23_1','stlc-111-2019-04-19_1','stlc-111-2019-04-19_2','indoor-coupa-cafe-2019-02-06_0','meyer-green-2019-03-16_1','nvidia-aud-2019-01-25_0'])
-    
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-04 08:21:21+00:00_Team_MJM','3dd',seqs=['stlc-111-2019-04-19_1','hewlett-class-2019-01-23_1','serra-street-2019-01-30_0','outdoor-coupa-cafe-2019-02-06_0','indoor-coupa-cafe-2019-02-06_0','meyer-green-2019-03-16_1'],old_submission='0')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 12:22:17+00:00_tanet++','3dd',seqs=['hewlett-class-2019-01-23_1','stlc-111-2019-04-19_1','stlc-111-2019-04-19_2','indoor-coupa-cafe-2019-02-06_0','meyer-green-2019-03-16_1','nvidia-aud-2019-01-25_0'],old_submission='2')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 06:26:08+00:00_EPNET','3dd',seqs=['lomita-serra-intersection-2019-01-30_0','hewlett-class-2019-01-23_1','gates-to-clark-2019-02-28_0','tressider-2019-04-26_3','tressider-2019-04-26_0','tressider-2019-04-26_1'],old_submission='3')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 12:28:56+00:00_lidar/','3dd',seqs=['hewlett-class-2019-01-23_1','lomita-serra-intersection-2019-01-30_0','stlc-111-2019-04-19_1','tressider-2019-04-26_3','tressider-2019-04-26_1','tressider-2019-04-26_0'],old_submission='4')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 06:27:48+00:00_Team_minjunmin/','3dd',seqs=['hewlett-class-2019-01-23_1','nvidia-aud-2019-04-18_2','stlc-111-2019-04-19_1','outdoor-coupa-cafe-2019-02-06_0','meyer-green-2019-03-16_1','huang-2-2019-01-25_1'],old_submission='5')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 12:24:42+00:00_jrdb-tanet/','3dd',seqs=['stlc-111-2019-04-19_1','lomita-serra-intersection-2019-01-30_0','gates-to-clark-2019-02-28_0','nvidia-aud-2019-01-25_0','outdoor-coupa-cafe-2019-02-06_0','indoor-coupa-cafe-2019-02-06_0'],old_submission='6')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 06:31:12+00:00_Fconv/','3dd',seqs=['stlc-111-2019-04-19_2','stlc-111-2019-04-19_1','hewlett-class-2019-01-23_1','tressider-2019-04-26_0','outdoor-coupa-cafe-2019-02-06_0','indoor-coupa-cafe-2019-02-06_0'],old_submission='7')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 12:26:56+00:00_F-pointnet/','3dd',seqs=['hewlett-class-2019-01-23_1','lomita-serra-intersection-2019-01-30_0','stlc-111-2019-04-19_1','tressider-2019-04-26_3','tressider-2019-04-26_0','outdoor-coupa-cafe-2019-02-06_0'],old_submission='8')
-    #visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 12:26:56+00:00_F-pointnet/','3dd',seqs=['stlc-111-2019-04-19_2'],old_submission='8')
-    visualise_jrdb_3d_det('/pvol2/jrdb_dev/jrdb_website_dev/media/submissions/u6361796@anu.edu.au/3dd/2021-11-24 12:32:56+00:00_EPNET++','3dd',seqs=['hewlett-class-2019-01-23_1','stlc-111-2019-04-19_1','gates-to-clark-2019-02-28_0','tressider-2019-04-26_3','tressider-2019-04-26_1','tressider-2019-04-26_0'],old_submission='3')
+    # eg. call visualise_jrdb_3d_det
+    pass
