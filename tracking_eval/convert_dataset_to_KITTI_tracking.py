@@ -8,6 +8,8 @@ import pandas as pd
 import numpy as np
 import open3d as o3d
 import yaml
+
+
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -16,14 +18,14 @@ def parse_arguments():
     parser.add_argument(
         "--train", default="train_dataset", help="Directory of training dataset"
     )
-    parser.add_argument(
-        "--gt", default=True, help="Is converting gt or prediction"
-    )
+    parser.add_argument("--gt", default=True, help="Is converting gt or prediction")
     parser.add_argument(
         "-o", "--outdir", default="jrdb", help="Directory of KITTI output"
     )
     opt = parser.parse_args()
     return opt
+
+
 def get_train_test_names():
     train = [
         "bytes-cafe-2019-02-07_0",
@@ -84,12 +86,18 @@ def get_train_test_names():
         "tressider-2019-04-26_3",
     ]
     return train, test
+
+
 def create_base_dirs(opt):
     os.makedirs(os.path.join(opt.outdir, "sequences"), exist_ok=True, mode=0o777)
     os.makedirs(os.path.join(opt.outdir, "test_sequences"), exist_ok=True, mode=0o777)
+
+
 def get_sequence_names(folder):
     path_to_seqs = os.path.join(folder, "images/image_0/*")
     return sorted(glob(path_to_seqs))
+
+
 def copy_images_and_pointclouds(opt):
     # create dataset directories
     create_base_dirs(opt)
@@ -203,6 +211,8 @@ def copy_images_and_pointclouds(opt):
                 "Completed copying images and pointclouds for sequence [%d/%d] in %s"
                 % (i + 1, len(sequence_paths), indir)
             )
+
+
 def convert_2d_gt(opt, train=True):
     train_seqs, test_seqs = get_train_test_names()
     # load the files in the directory
@@ -286,6 +296,8 @@ def convert_2d_gt(opt, train=True):
         os.makedirs(save_path, exist_ok=True)
         df.to_csv(save_name, index=False, header=False)
         print("Saved 2d gt [%d/%d] in %s" % (i + 1, len(files), indir))
+
+
 def convert_2d_det(opt, train=True):
     train_seqs, test_seqs = get_train_test_names()
     # load the files in the directory
@@ -371,9 +383,11 @@ def convert_2d_det(opt, train=True):
         os.makedirs(save_path, exist_ok=True)
         df.to_csv(save_name, index=False, header=False)
         print("Saved 2d det [%d/%d] in %s" % (i + 1, len(files), indir))
+
+
 def convert_stitched_gt(opt, train=True):
     train_seqs, test_seqs = get_train_test_names()
-    
+
     opt.train = "/pvol2/jrdb_dev/jrdb_website_dev/static/downloads/jrdb_train/train_dataset_with_activity/"
     print(opt)
     # load the files in the directory
@@ -456,6 +470,8 @@ def convert_stitched_gt(opt, train=True):
         os.makedirs(save_path, exist_ok=True)
         df.to_csv(save_name, index=False, header=False)
         print("Saved stitched gt [%d/%d]" % (i + 1, len(files)))
+
+
 def convert_stitched_det(opt, train=True):
     train_seqs, test_seqs = get_train_test_names()
     # load the files in the directory
@@ -544,6 +560,8 @@ def convert_stitched_det(opt, train=True):
         os.makedirs(save_path, exist_ok=True)
         df.to_csv(save_name, index=False, header=False)
         print("Saved stitched det [%d/%d]" % (i + 1, len(files)))
+
+
 def convert_2d(opt):
     train_seqs, test_seqs = get_train_test_names()
     print(opt.train)
@@ -567,9 +585,9 @@ def convert_2d(opt):
                 box = target["box"]
                 # print(box)
                 frame = int(frame_name.split(".")[0])
-                
-                rotation_y=-1
-                x1_2d,y1_2d,x2_2d,y2_2d=box
+
+                rotation_y = -1
+                x1_2d, y1_2d, x2_2d, y2_2d = box
                 truncated = 0
                 occlusion = 0
                 alpha = -1
@@ -594,7 +612,7 @@ def convert_2d(opt):
                             -1,
                             -1,
                             rotation_y,
-                            conf
+                            conf,
                         )
                     )
                 else:
@@ -621,11 +639,7 @@ def convert_2d(opt):
                         )
                     )
                 data.append(line)
-        save_path = os.path.join(
-            opt.outdir,
-            "CIWT",
-            "data",
-        )
+        save_path = os.path.join(opt.outdir, "CIWT", "data",)
         save_name = os.path.join(save_path, "%04d" % i + ".txt")
         os.makedirs(save_path, exist_ok=True)
         # df.to_csv(save_name, index=False, header=False)
@@ -633,6 +647,8 @@ def convert_2d(opt):
             f.writelines(data)
         print(save_path)
         print("Saved 2d [%d/%d]" % (i + 1, len(files)))
+
+
 def convert_3d(opt):
     train_seqs, test_seqs = get_train_test_names()
     files = glob(os.path.join(opt.train, "labels", "labels_3d", "*.json"))
@@ -658,7 +674,14 @@ def convert_3d(opt):
                 rotation_y = (
                     -box["rot_z"] if box["rot_z"] < np.pi else 2 * np.pi - box["rot_z"]
                 )
-                height_3d,width_3d,length_3d,centerx_3d,centery_3d,centerz_3d=box['h'],box['w'],box['l'],box['cx'],box['cy'],box['cz']
+                height_3d, width_3d, length_3d, centerx_3d, centery_3d, centerz_3d = (
+                    box["h"],
+                    box["w"],
+                    box["l"],
+                    box["cx"],
+                    box["cy"],
+                    box["cz"],
+                )
                 truncated = 0
                 occlusion = 0
                 alpha = -1
@@ -683,11 +706,11 @@ def convert_3d(opt):
                             centery_3d,
                             centerz_3d,
                             rotation_y,
-                            conf
+                            conf,
                         )
                     )
                 else:
-                    #occlusion = target["attributes"]["occlusion"]
+                    # occlusion = target["attributes"]["occlusion"]
                     line = (
                         "%s %s Pedestrian %s %s %s %s %s %s %s %s %s %s %s %s %s %s\n"
                         % (
@@ -711,11 +734,7 @@ def convert_3d(opt):
                     )
                 data.append(line)
         df = pd.DataFrame(data=np.array(data))
-        save_path = os.path.join(
-            opt.outdir,
-            "CIWT",
-            "data",
-        )
+        save_path = os.path.join(opt.outdir, "CIWT", "data",)
         save_name = os.path.join(save_path, "%04d" % i + ".txt")
         os.makedirs(save_path, exist_ok=True)
         # df.to_csv(save_name, index=False, header=False)
@@ -723,6 +742,8 @@ def convert_3d(opt):
             f.writelines(data)
         print(save_path)
         print("Saved 3d [%d/%d]" % (i + 1, len(files)))
+
+
 def copy_calib(opt, train=True):
     if train:
         sequences = os.listdir(os.path.join(opt.train, "images", "image_0"))
@@ -735,7 +756,10 @@ def copy_calib(opt, train=True):
             os.path.join(opt.train, "calib"),
             os.path.join(opt.outdir, seq_folder, sequence, "calib"),
         )
+
+
 def main(opt):
+
     # copy_images_and_pointclouds(opt)
     # convert_2d_det(opt)
     # convert_2d_det(opt, train=False)
@@ -746,11 +770,16 @@ def main(opt):
     # convert_stitched_gt(opt)
     # convert_stitched_gt(opt, train=True)
     # convert_3d_gt(opt)
+
+    # please use these two function for converting json file to txt format, others are keeped for further development.
     convert_3d(opt)
     convert_2d(opt)
+
     # convert_2d(opt)
     # copy_calib(opt)
     # copy_calib(opt, train=False)
+
+
 if __name__ == "__main__":
     opt = parse_arguments()
     print(opt)
