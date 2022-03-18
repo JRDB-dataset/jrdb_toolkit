@@ -702,9 +702,9 @@ def convert_3d(opt):
                             -centery_3d,
                             -centerz_3d+height_3d/2,
                             centerx_3d,
-                            height_3d,
-                            width_3d,
-                            length_3d,
+                            height_3d, #height KITTI camera = height JRDB lidar
+                            length_3d, #width KITTI camera = length JRDB lidar
+                            width_3d,  #length KITTI camera = width JRDB lidar
                             rotation_y,
                             conf,
                         )
@@ -723,9 +723,9 @@ def convert_3d(opt):
                             -1,
                             -1,
                             -1,
-                            height_3d,
-                            width_3d,
-                            length_3d,
+                            height_3d, #height KITTI camera = height JRDB lidar
+                            length_3d, #width KITTI camera = length JRDB lidar
+                            width_3d,  #length KITTI camera = width JRDB lidar
                             centerx_3d,
                             centery_3d,
                             centerz_3d,

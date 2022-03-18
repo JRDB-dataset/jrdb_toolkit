@@ -134,7 +134,7 @@ def convert_jr2kitti(labels, output_dir):
             # Append a line of text in a KITTI-like format.
             label_lines.append(
                 "Pedestrian %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s 1\n" % \
-                    (truncated, occlusion, num_points_3d, alpha, x1_2d, y1_2d, x2_2d, y2_2d, height_3d, width_3d, length_3d, centerx_3d, centery_3d, centerz_3d, rotation_y) 
+                    (truncated, occlusion, num_points_3d, alpha, x1_2d, y1_2d, x2_2d, y2_2d, height_3d, length_3d, width_3d, centerx_3d, centery_3d, centerz_3d, rotation_y)
             )
 
         # Write label text file to the output directory.
