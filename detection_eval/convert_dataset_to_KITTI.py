@@ -100,9 +100,18 @@ def move_frame(input_dir, output_dir, calib, seq_name, file_name, labels_2d,
     lower_ptc = _load_pointcloud(IN_PTC_LOWER_PATH, 'lidar_lower_to_rgb')
     upper_ptc = _load_pointcloud(IN_PTC_UPPER_PATH, 'lidar_upper_to_rgb')
     ptc = np.vstack((upper_ptc, lower_ptc))
-    pc = o3d.geometry.PointCloud()
-    pc.points = o3d.utility.Vector3dVector(ptc)
-    o3d.io.write_point_cloud(os.path.join(output_dir, OUT_PTC_PATH, f'{file_idx:06d}.pcd'), pc)
+    # Save as .pcd -> num_point_features = 3
+    # pc = o3d.geometry.PointCloud()
+    # pc.points = o3d.utility.Vector3dVector(ptc)
+    # o3d.io.write_point_cloud(os.path.join(output_dir, OUT_PTC_PATH, f'{file_idx:06d}.pcd'), pc)
+
+    # Save as .bin
+    ptc = np.hstack((ptc, np.ones((ptc.shape[0], 1))))
+    filepath = os.path.join(output_dir, OUT_PTC_PATH, f'{file_idx:06d}.bin')
+    with open(filepath, 'w') as f:
+        ptc.astype(np.float32).tofile(f)
+
+    # save as .npy -> num_point_features = 4
     # ptc = np.hstack((ptc, np.ones((ptc.shape[0], 1))))
     # np.save(os.path.join(output_dir, OUT_PTC_PATH, f'{file_idx:06d}.npy'), ptc)
 
