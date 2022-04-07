@@ -131,16 +131,16 @@ def move_frame(input_dir, output_dir, calib, seq_name, file_name, labels_2d,
             rotation_y = (-label_3d['box']['rot_z']
                           if label_3d['box']['rot_z'] < np.pi else 2 * np.pi -
                                                                    label_3d['box']['rot_z'])
-            # height KITTI camera = height JRDB lidar
-            # width KITTI camera = length JRDB lidar
-            # length KITTI camera = width JRDB lidar
+            # height KITTI camera = height JRDB lidar/camera
+            # width KITTI camera = length JRDB lidar/camera
+            # length KITTI camera = width JRDB lidar/camera
             label_lines.append(
                 f"Pedestrian 0 {ENUM_OCCLUSION[label_2d['attributes']['occlusion']]} "
                 f"{label_3d['observation_angle']} "
                 f"{label_2d['box'][0]} {label_2d['box'][1]} "
                 f"{label_2d['box'][0] + label_2d['box'][2]} "
                 f"{label_2d['box'][1] + label_2d['box'][3]} "
-                f"{label_3d['box']['h']} {label_3d['box']['l']} "  # hwl KITTI cam == hlw jrdb lidar
+                f"{label_3d['box']['h']} {label_3d['box']['l']} "  # hwl KITTI cam == hlw jrdb lidar = hlw jrdb camera
                 f"{label_3d['box']['w']} {-label_3d['box']['cy']} "
                 f"{-label_3d['box']['cz'] + label_3d['box']['h'] / 2} "
                 f"{label_3d['box']['cx']} {-rotation_y} 1\n"

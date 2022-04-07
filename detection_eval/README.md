@@ -106,6 +106,11 @@ For transparency, we included the evaluation code. It can be compiled via:
 g++ -O3 -o evaluate_object evaluate_object.cpp
 ```
 
+## JRDB -> KITTI data conversion
+The script for JRDB format -> KITTI format conversion is also provided, you can run:
+```angular2html
+python convert_dataset_to_KITTI.py --input_dir=/path/to/JRDB --output_dir=/path/to/converted_JRDB
+```
 ## Acknowledgement
 
 This code is a fork of KITTI 3D Object Detection development kit:
