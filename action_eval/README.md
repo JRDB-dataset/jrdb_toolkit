@@ -34,6 +34,7 @@ column    Name      Description
                                   In social grouping challenge, it must be the confidence score of detected bounding boxes.
 
 ```
+Also, in the annotation files, "cluster_stat" means the difficulty of the grouping, and numbers in "action_label" variable indicate difficulties of the action. 
 
 ## Individual action detection
 
