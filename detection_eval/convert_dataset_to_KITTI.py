@@ -143,7 +143,7 @@ def move_frame(input_dir, output_dir, calib, seq_name, file_name, labels_2d,
                 f"{label_3d['box']['h']} {label_3d['box']['l']} "  # hwl KITTI cam == hlw jrdb lidar = hlw jrdb camera
                 f"{label_3d['box']['w']} {-label_3d['box']['cy']} "
                 f"{-label_3d['box']['cz'] + label_3d['box']['h'] / 2} "
-                f"{label_3d['box']['cx']} {-rotation_y} 1\n"
+                f"{label_3d['box']['cx']} {rotation_y} 1\n"
             )
         label_out = os.path.join(output_dir, OUT_LABEL_PATH, f'{file_idx:06d}.txt')
         with open(label_out, 'w') as f:
