@@ -723,13 +723,13 @@ def convert_3d(opt):
                             -1,
                             -1,
                             -1,
-                            height_3d, #height KITTI camera = height JRDB lidar
-                            length_3d, #width KITTI camera = length JRDB lidar
-                            width_3d,  #length KITTI camera = width JRDB lidar
-                            centerx_3d,
-                            centery_3d,
-                            centerz_3d,
-                            rotation_y,
+                            height_3d, # In KITTI box coordinates
+                            width_3d,  # In KITTI box coordinates
+                            length_3d, # In KITTI box coordinates
+                            centerx_3d, # In KITTI box coordinates
+                            centery_3d, # In KITTI box coordinates
+                            centerz_3d, # In KITTI box coordinates
+                            rotation_y, # In KITTI box coordinates
                         )
                     )
                 data.append(line)
