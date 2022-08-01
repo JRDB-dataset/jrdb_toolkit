@@ -9,6 +9,7 @@ import numpy as np
 import open3d as o3d
 import yaml
 
+#truncated track, occlusion
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
@@ -205,8 +206,8 @@ def copy_images_and_pointclouds(opt):
                 )
                 pointcloud = np.vstack([upper_pc, lower_pc])
                 pointcloud = np.hstack([pointcloud, np.ones((pointcloud.shape[0], 1))])
-                with open(pc_dst, "wb") as f:
-                    np.save(f, pointcloud)
+                with open(pc_dst, 'w') as f:
+                    pointcloud.astype(np.float32).tofile(f)
             print(
                 "Completed copying images and pointclouds for sequence [%d/%d] in %s"
                 % (i + 1, len(sequence_paths), indir)

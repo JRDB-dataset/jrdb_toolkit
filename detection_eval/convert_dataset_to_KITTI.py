@@ -106,10 +106,10 @@ def move_frame(input_dir, output_dir, calib, seq_name, file_name, labels_2d,
     # o3d.io.write_point_cloud(os.path.join(output_dir, OUT_PTC_PATH, f'{file_idx:06d}.pcd'), pc)
 
     # Save as .bin
-    ptc = np.hstack((ptc, np.ones((ptc.shape[0], 1))))
+    ptc = np.hstack((ptc, np.ones((ptc.shape[0], 1)))).astype(np.float32)
     filepath = os.path.join(output_dir, OUT_PTC_PATH, f'{file_idx:06d}.bin')
     with open(filepath, 'w') as f:
-        ptc.astype(np.float32).tofile(f)
+        ptc.tofile(f)
 
     # save as .npy -> num_point_features = 4
     # ptc = np.hstack((ptc, np.ones((ptc.shape[0], 1))))
