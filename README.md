@@ -1,4 +1,4 @@
-# jrdb_toolkit
+# JRDB Evaluation Toolkit
 
 Toolkit for JRDB dataset
 
