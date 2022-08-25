@@ -27,3 +27,18 @@ Before saving the visualisation as video (set ``save_as_vid`` to ``True``), we s
 
 Please let me know if you have any problems running the script
 
+#### Sample setting
+stitched image + 2D boxes + projected 3D boxes + social grouping + pose:
+```h2
+viz_2D                  = True   # True is viz 2D, False if viz 3D
+show_individual_image   = False  # Show individual cameras
+show_2d_labels          = True   # Show 2D bboxes
+show_3d_labels          = True   # show 3d bboxes
+show_2d_poses           = True   # show 2d poses
+show_social_group       = True   # show social grouping
+show_social_action      = False  # show social actions
+show_individual_action  = False  # show individual actions
+show_velo_points        = False  # Project 3D lidar on to STITCHED IMAGE, Used when visualise 2D stitched image
+```
+Result:
+<p align="center"> <img src='sample.png' align="center"> </p>

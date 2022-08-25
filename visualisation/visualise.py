@@ -1642,8 +1642,8 @@ if __name__ == '__main__':
     window_width, window_height = int(monitor[0].width * 0.95), int(monitor[0].height * 0.95)
 
     for location in locations:
-        assert (viz_kitti_submissions == True) and (
-                location in TEST), "Can't visualise predictions on training set, please change the location to test set"
+        assert (viz_kitti_submissions != True) and (
+                location not in TEST), "Can't visualise predictions on training set, please change the location to test set"
         if location in TRAIN:
             root_dir = root_location + "/train_dataset_with_activity"
         else:
