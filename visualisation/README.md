@@ -23,7 +23,7 @@ In the __main__ function at the end of the script (line ~1570)
 Finally, run the script: ```python ./visualise.py```
 
 #### Note
-Before saving the visualisation as video (set ``save_as_vid`` to ``True``), we suggest to set ``save_as_vid`` to ``False`` and run the script to inspect, only if set it to ``True`` once you're happy with the visualisation.
+Before saving the visualisation as video (set ``save_as_vid`` to ``True``), we suggest to set ``save_as_vid`` to ``False`` and run the script to inspect, only set to ``True`` once you're happy with the visualisation.
 
 Please let me know if you have any problems running the script
 
