@@ -67,7 +67,7 @@ def write_paper_summary_results(summaries, cls, output_folder, is_reid=False, _f
                 fp.write(f"{row}\n")
 
 
-def write_summary_results(summaries, cls, output_folder):
+def write_summary_results(summaries, cls, output_folder, metric_name = ''):
     """Write summary results to file"""
 
     fields = sum([list(s.keys()) for s in summaries], [])
@@ -90,7 +90,7 @@ def write_summary_results(summaries, cls, output_folder):
     fields = list(default_ordered_dict.keys())
     values = list(default_ordered_dict.values())
 
-    out_file = os.path.join(output_folder, cls + '_summary.txt')
+    out_file = os.path.join(output_folder, cls + f'{metric_name}_summary.txt')
     os.makedirs(os.path.dirname(out_file), exist_ok=True)
     with open(out_file, 'w', newline='') as f:
         writer = csv.writer(f, delimiter=' ')
@@ -98,11 +98,11 @@ def write_summary_results(summaries, cls, output_folder):
         writer.writerow(values)
 
 
-def write_detailed_results(details, cls, output_folder):
+def write_detailed_results(details, cls, output_folder, metric_name = ''):
     """Write detailed results to file"""
     sequences = details[0].keys()
     fields = ['seq'] + sum([list(s['COMBINED_SEQ'].keys()) for s in details], [])
-    out_file = os.path.join(output_folder, cls + '_detailed.csv')
+    out_file = os.path.join(output_folder, cls + f'{metric_name}_detailed.csv')
     os.makedirs(os.path.dirname(out_file), exist_ok=True)
     with open(out_file, 'w', newline='') as f:
         writer = csv.writer(f)

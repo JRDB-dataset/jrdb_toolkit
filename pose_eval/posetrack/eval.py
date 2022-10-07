@@ -28,7 +28,8 @@ class Evaluator:
             'PRINT_PAPER_SUMMARY': False,
             'TIME_PROGRESS': True,
             'DISPLAY_LESS_PROGRESS': True,
-            'OUTPUT_PAPER_SUMMARY': True,
+            'OUTPUT_PAPER_SUMMARY': True, # For HOTA metric
+            'OUTPUT_SUMMARY': True, # For other metrics
             'OUTPUT_DETAILED': True,
         }
         return default_config
@@ -76,7 +77,8 @@ class Evaluator:
                     else:
                         res = {}
                         for curr_seq in sorted(seq_list):
-                            res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,metric_names)
+                            res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+                                                          metric_names)
 
                     # Combine results over all sequences and then over all classes
                     # collecting combined cls keys (cls averaged, det averaged, super classes)
@@ -109,22 +111,36 @@ class Evaluator:
                             else:
                                 table_res = {seq_key: seq_value[c_cls][metric_name] for seq_key, seq_value
                                              in res.items()}
+
                             if config['PRINT_RESULTS'] and config['PRINT_COMBINED_SUMMARY_ONLY']:
                                 metric.print_table({'COMBINED_SEQ': table_res['COMBINED_SEQ']},
                                                    tracker_display_name, c_cls)
 
-                            elif config['PRINT_RESULTS'] and not config['OUTPUT_DETAILED']:
-                                metric.print_table(table_res, tracker_display_name, c_cls)
-                            elif config['PRINT_RESULTS'] and config['OUTPUT_DETAILED']:
-                                metric.print_table_detailed(table_res, tracker_display_name, c_cls)
+                            elif config['PRINT_RESULTS'] :
+                                if metric_name == "HOTAKeypoints" and config['OUTPUT_DETAILED']:
+                                    metric.print_table_detailed(table_res, tracker_display_name, c_cls)
+                                else:
+                                    metric.print_table(table_res, tracker_display_name, c_cls)
 
-                            if config['PRINT_PAPER_SUMMARY']:
-                                metric.print_paper_summary(table_res, tracker_display_name, c_cls)
+                            if metric_name == "HOTAKeypoints":
+                                if config['PRINT_PAPER_SUMMARY']:
+                                    metric.print_paper_summary(table_res, tracker_display_name, c_cls)
+                                if config['OUTPUT_PAPER_SUMMARY']:
+                                    paper_summaries.append(metric.paper_summary_results(table_res))
+                            else:
+                                if config['OUTPUT_SUMMARY']:
+                                    summaries.append(metric.summary_results(table_res))
+                                if config['OUTPUT_DETAILED']:
+                                    details.append(metric.detailed_results(table_res))
 
-                            if config['OUTPUT_PAPER_SUMMARY']:
-                                paper_summaries.append(metric.paper_summary_results(table_res))
 
-                        utils.write_paper_summary_results(paper_summaries, c_cls, output_fol, _file_name='pose_hota_results.txt')
+                        if config['OUTPUT_SUMMARY'] and metric_name != "HOTAKeypoints":
+                            utils.write_summary_results(summaries, c_cls, output_fol)
+                        if config['OUTPUT_DETAILED'] and metric_name != "HOTAKeypoints":
+                            utils.write_detailed_results(details, c_cls, output_fol)
+                    if "HOTAKeypoints" in metric_names:
+                        utils.write_paper_summary_results(paper_summaries, c_cls, output_fol,
+                                                          _file_name='pose_hota_results.txt')
                     # Output for returning from function
                     output_res[dataset_name][tracker] = res
                     output_msg[dataset_name][tracker] = 'Success'

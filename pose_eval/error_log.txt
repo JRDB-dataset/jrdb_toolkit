@@ -1129,3 +1129,58 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB
 
 
 
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 119, in evaluate
+    metric.print_table_detailed(table_res, tracker_display_name, c_cls)
+AttributeError: 'CLEAR' object has no attribute 'print_table_detailed'
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 119, in evaluate
+    metric.print_table_detailed(table_res, tracker_display_name, c_cls)
+AttributeError: 'CLEAR' object has no attribute 'print_table_detailed'
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 128, in evaluate
+    if config['OUTPUT_SUMMARY']:
+KeyError: 'OUTPUT_SUMMARY'
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 135, in evaluate
+    if config['OUTPUT_SUMMARY'] & metric_name != "HOTAKeypoints":
+TypeError: unsupported operand type(s) for &: 'bool' and 'str'
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 122, in evaluate
+    metric.print_table_detailed(table_res, tracker_display_name, c_cls)
+AttributeError: 'Identity' object has no attribute 'print_table_detailed'
+
+
+
+
+
