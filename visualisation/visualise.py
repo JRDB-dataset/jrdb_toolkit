@@ -345,6 +345,7 @@ class Visualizer(object):
         with open(camera_config) as f:
             self.camera_config_dict = yaml.safe_load(f)
         self.cam_ids = [0, 2, 4, 6, 8]
+        self.show_individual_image = False
         self.area = area
         self.polygon = None
         self.max_heights_by_ID = {}
@@ -872,9 +873,9 @@ class Visualizer(object):
                 #     concat_image = cv2.hconcat([concat_image,hsv_image])
                 individual_images[cam_id] = hsv_image
 
-            final_image = cv2.hconcat([individual_images[6], individual_images[8],
-                                       individual_images[0], individual_images[2],
-                                       individual_images[4]
+            final_image = cv2.hconcat([individual_images['sensor_6'], individual_images['sensor_8'],
+                                       individual_images['sensor_0'], individual_images['sensor_2'],
+                                       individual_images['sensor_4']
                                        ])
         if show_social_action or show_individual_action:
             action_list = set(itertools.chain(*actions))
@@ -986,7 +987,8 @@ class Visualizer(object):
         # pp.pprint(self.labels_3d)
         # exit()
         # if self.labels_3d is not None and sorted(self.labels_2d.keys()) != sorted(self.cam_ids):
-        if (self.labels_3d is not None):
+        # TODO: handle individual image with 3D boxes
+        if (self.labels_3d is not None) and not (self.show_individual_image):
             # and (sorted(self.labels_2d.keys()) != sorted(self.cam_ids))
             if "label_id" in self.labels_3d[f"{ts}.pcd"][0].keys():
                 label_3d_ids = np.asarray(
@@ -1029,20 +1031,20 @@ class Visualizer(object):
                                                               p['action_label'].keys()]
             else:
                 for cam_id, cam_labels in self.labels_2d.items():
-                    annos[cam_id] = {}
+                    annos[f"sensor_{cam_id}"] = {}
                     for idx, p in enumerate(cam_labels[f"{ts}.jpg"]):
                         ped_id = int(p['label_id'][p['label_id'].find(':') + 1:])
-                        if ped_id not in annos[cam_id].keys():
-                            annos[cam_id][ped_id] = copy.deepcopy(empty_anno)
-                        annos[cam_id][ped_id]['id'] = ped_id
-                        annos[cam_id][ped_id]['bbox_2d'] = p['box']
-                        annos[cam_id][ped_id]['occlusion_2d'] = 1 if (
+                        if ped_id not in annos[f"sensor_{cam_id}"].keys():
+                            annos[f"sensor_{cam_id}"][ped_id] = copy.deepcopy(empty_anno)
+                        annos[f"sensor_{cam_id}"][ped_id]['id'] = ped_id
+                        annos[f"sensor_{cam_id}"][ped_id]['bbox_2d'] = p['box']
+                        annos[f"sensor_{cam_id}"][ped_id]['occlusion_2d'] = 1 if (
                                 p['attributes']['occlusion'] not in ['Fully_visible', 'Mostly_visible']) else 0
                         if 'social_group' in p.keys():
-                            annos[cam_id][ped_id]['social_group'] = p['social_group']['cluster_ID']
-                            annos[cam_id][ped_id]['social_action'] = [social_act_list[item] for item in
+                            annos[f"sensor_{cam_id}"][ped_id]['social_group'] = p['social_group']['cluster_ID']
+                            annos[f"sensor_{cam_id}"][ped_id]['social_action'] = [social_act_list[item] for item in
                                                                       p['social_activity'].keys()]
-                            annos[cam_id][ped_id]['individual_action'] = [social_act_list[item] for item in
+                            annos[f"sensor_{cam_id}"][ped_id]['individual_action'] = [social_act_list[item] for item in
                                                                           p['action_label'].keys()]
 
         # if score is not None:
@@ -1083,7 +1085,7 @@ class Visualizer(object):
                     for ped in cam_labels['annotations']:
                         if ped['image_id'] != img_id:
                             continue
-                        if ped['track_id'] in annos[cam_id].keys():
+                        if ped['track_id'] in annos[f"sensor_{cam_id}"].keys():
                             if "keypoints" in ped.keys():
                                 keypoints = ped['keypoints']
                             else:
@@ -1092,8 +1094,8 @@ class Visualizer(object):
                             for i in range(0, 51, 3):
                                 pose.append([keypoints[i], keypoints[i + 1]])
                                 pose_occlusion.append(keypoints[i + 2])
-                            annos[cam_id][ped['track_id']]['pose'] = pose
-                            annos[cam_id][ped['track_id']]['pose_occlusion'] = pose_occlusion
+                            annos[f"sensor_{cam_id}"][ped['track_id']]['pose'] = pose
+                            annos[f"sensor_{cam_id}"][ped['track_id']]['pose_occlusion'] = pose_occlusion
         # annos = []
         # if self.labels_2d is not None:
         #     for (label_2d_id, box_2d, occlusion_2d) in zip(label_2d_ids, bboxes_2d, occlusions_2d):
@@ -1167,6 +1169,8 @@ class Visualizer(object):
                      video_output_dir=None
                      ):
         self.area = area
+        self.show_individual_image = show_individual_image
+
 
         if timestamps is None:
             timestamps = [ts[:-4] for ts in self.labels_3d.keys()]
@@ -1642,8 +1646,6 @@ if __name__ == '__main__':
     window_width, window_height = int(monitor[0].width * 0.95), int(monitor[0].height * 0.95)
 
     for location in locations:
-        assert (viz_kitti_submissions != True) and (
-                location not in TEST), "Can't visualise predictions on training set, please change the location to test set"
         if location in TRAIN:
             root_dir = root_location + "/train_dataset_with_activity"
         else:
