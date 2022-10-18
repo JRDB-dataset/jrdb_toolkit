@@ -17,7 +17,7 @@ class Evaluator:
         """Returns the default config values for evaluation"""
         code_path = utils.get_code_path()
         default_config = {
-            'USE_PARALLEL': True,
+            'USE_PARALLEL': False,
             'NUM_PARALLEL_CORES': 8,
             'BREAK_ON_ERROR': True,  # Raises exception and exits with error
             'RETURN_ON_ERROR': False,  # if not BREAK_ON_ERROR, then returns from function on error
@@ -77,6 +77,7 @@ class Evaluator:
                     else:
                         res = {}
                         for curr_seq in sorted(seq_list):
+                            print(curr_seq)
                             res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
                                                           metric_names)
 

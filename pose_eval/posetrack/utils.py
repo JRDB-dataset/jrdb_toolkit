@@ -5,8 +5,10 @@ import numpy as np
 
 
 def count_valid_joints(joints: np.ndarray):
-    valid_kpts = (joints[:, :, 0] > 0) & (joints[:, :, 1] > 0)
+    # valid_kpts = (joints[:, :, 0] != 0) & (joints[:, :, 1] != 0)
+    valid_kpts = np.tile(True, [joints.shape[0],joints.shape[1]])
     num_valid_kpts = np.sum(valid_kpts, axis=0)
+
 
     return num_valid_kpts
 

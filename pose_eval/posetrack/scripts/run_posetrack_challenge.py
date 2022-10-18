@@ -11,7 +11,12 @@ if __name__ == '__main__':
     # Command line interface:
     default_eval_config = trackeval.Evaluator.get_default_eval_config()
     default_dataset_config = trackeval.datasets.JRDBPose.get_default_dataset_config()
-    default_metrics_config = {'METRICS': ['HOTAKeypoints', 'CLEAR', 'Identity']}
+    default_metrics_config = {'METRICS': [
+        # 'HOTAKeypoints',
+        # 'CLEAR',
+        # 'Identity',
+        'OSPA2'
+    ]}
     config = {**default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs
     parser = argparse.ArgumentParser()
     for setting in config.keys():
@@ -46,7 +51,8 @@ if __name__ == '__main__':
     metrics_list = []
     for metric in [trackeval.metrics.HOTAKeypoints,
                    trackeval.metrics.CLEAR,
-                   trackeval.metrics.Identity]:
+                   trackeval.metrics.Identity,
+                   trackeval.metrics.OSPA2]:
         if metric.get_name() in metrics_config['METRICS']:
             metrics_list.append(metric())
     if len(metrics_list) == 0:

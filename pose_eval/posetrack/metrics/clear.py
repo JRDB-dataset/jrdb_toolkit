@@ -64,7 +64,7 @@ class CLEAR(_BaseMetric):
         prev_timestep_tracker_id = np.nan * np.zeros(num_gt_ids)  # For matching IDSW
 
         # Calculate scores for each timestep
-        for t, (gt_ids_t, tracker_ids_t) in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
+        for t, (gt_ids_t, tracker_ids_t,) in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
             # Deal with the case that there are no gt_det/tracker_det in a timestep.
             if len(gt_ids_t) == 0:
                 res['CLR_FP'] += len(tracker_ids_t)

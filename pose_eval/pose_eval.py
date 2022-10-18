@@ -85,6 +85,7 @@ def get_per_kp_oks_matrix(gt_annots, pr_annots, sigmas=[
     var = (sigmas * 2)**2
 
     results = np.zeros((len(gt_annots), len(pr_annots), 17))
+    k= len(sigmas)
 
     # Based on https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py
     for j, gt in enumerate(gt_annots):

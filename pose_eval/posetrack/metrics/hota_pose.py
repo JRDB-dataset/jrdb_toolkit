@@ -105,7 +105,8 @@ class HOTAKeypoints(_BaseMetric):
         for t, (gt_ids_t, tracker_ids_t) in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
 
             keypoint_distances = data['keypoint_distances'][t]
-            keypoint_sim = self.distance2sim(keypoint_distances)
+            # keypoint_sim = self.distance2sim(keypoint_distances)
+            keypoint_sim = data['oks_kpts_sims'][t]
             data['keypoint_similarity'].append(keypoint_sim)
             if len(tracker_ids_t) > 0:
                 dist_iou_denom = keypoint_sim.sum(0)[np.newaxis, :, :] + keypoint_sim.sum(1)[:, np.newaxis,
@@ -119,8 +120,12 @@ class HOTAKeypoints(_BaseMetric):
             gt_joints = data['gt_dets'][t]
             tracker_joints = data['tracker_dets'][t]
 
-            valid_gt_kpts = (gt_joints[:, :, 0] > 0) & (gt_joints[:, :, 1] > 0)
-            valid_tracker_kpts = (tracker_joints[:, :, 0] > 0) & (tracker_joints[:, :, 1] > 0)
+            # valid_gt_kpts = (gt_joints[:, :, 0] > 0) & (gt_joints[:, :, 1] > 0)
+            # valid_tracker_kpts = (tracker_joints[:, :, 0] > 0) & (tracker_joints[:, :, 1] > 0)
+
+            # JRDB assumption: all points are valid regardless locations
+            valid_gt_kpts = np.tile(True, [gt_joints.shape[0],gt_joints.shape[1]])
+            valid_tracker_kpts = np.tile(True, [tracker_joints.shape[0],tracker_joints.shape[1]])
 
             gt_id_count[gt_ids_t, 0] += valid_gt_kpts
 
@@ -140,8 +145,13 @@ class HOTAKeypoints(_BaseMetric):
             # calculate num dets per joint class for frame t
             gt_kpts_t = data['gt_dets'][t]
             det_kpts_t = data['tracker_dets'][t]
-            num_gt_joints_t = np.sum((gt_kpts_t[:, :, 0] > 0) & (gt_kpts_t[:, :, 1] > 0), axis=0)
-            num_det_joints_t = np.sum((det_kpts_t[:, :, 0] > 0) & (det_kpts_t[:, :, 1] > 0), axis=0)
+
+            # num_gt_joints_t = np.sum((gt_kpts_t[:, :, 0] > 0) & (gt_kpts_t[:, :, 1] > 0), axis=0)
+            # num_det_joints_t = np.sum((det_kpts_t[:, :, 0] > 0) & (det_kpts_t[:, :, 1] > 0), axis=0)
+
+            # JRDB assumption: all points are valid regardless locations
+            num_gt_joints_t = np.repeat(gt_kpts_t.shape[0],gt_kpts_t.shape[1])
+            num_det_joints_t = np.repeat(det_kpts_t.shape[0],det_kpts_t.shape[1])
 
             # Deal with the case that there are no gt_det/tracker_det in a timestep.
             if len(gt_ids_t) == 0:
@@ -170,10 +180,15 @@ class HOTAKeypoints(_BaseMetric):
                     alpha_match_rows = match_rows[actually_matched_mask]
                     alpha_match_cols = match_cols[actually_matched_mask]
                     num_matches = len(alpha_match_rows)
+
+
                     res['HOTA_TP'][a][j] += num_matches
 
                     res['HOTA_FN'][a][j] += num_gt_joints_t[j] - num_matches
+                    if num_gt_joints_t[j] - num_matches:
+                        print(num_gt_joints_t[j] - num_matches)
                     res['HOTA_FP'][a][j] += num_det_joints_t[j] - num_matches
+
                     if num_matches > 0:
                         res['LocA'][a][j] += sum(similarity[alpha_match_rows, alpha_match_cols, j])
                         matches_counts[a][gt_ids_t[alpha_match_rows], tracker_ids_t[alpha_match_cols], j] += 1
@@ -301,7 +316,7 @@ class HOTAKeypoints(_BaseMetric):
         self._row_print([metric_name + '->evaluating: ' + tracker + ':'])
         seq_names = list(table_res.keys())
         metric_names = list(table_res[seq_names[0]].keys())
-        self._row_print(['Sequence'] + metric_names, space=15)
+        self._row_print(['Sequence'] + metric_names, space=17)
         for seq, results in sorted(table_res.items()):
             if seq == 'COMBINED_SEQ':
                 continue
@@ -309,7 +324,7 @@ class HOTAKeypoints(_BaseMetric):
             for metric, metric_results in results.items():
                 summary_res = self._summary_result(metric, metric_results)
                 seq_results.append(summary_res[-1])
-            self._row_print([seq] + seq_results, space=15)
+            self._row_print([seq] + seq_results, space=17)
 
         self._row_print([metric_name + '->Summary: ' + tracker + ':'])
         self._row_print(['\t'] + self.joint_names + ['Total'])

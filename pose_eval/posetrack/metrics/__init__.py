@@ -5,3 +5,4 @@ from .hota_pose_reid import HOTAReidKeypoints
 from .map import PosemAP 
 from .clear import CLEAR
 from .identity import Identity
+from .ospa2 import OSPA2
