@@ -6,6 +6,8 @@ import sys
 import json
 from scipy.optimize import linear_sum_assignment
 import time
+import cv2
+
 
 IOU_THRESHOLD = 0.5
 
@@ -38,7 +40,63 @@ TRAIN_LOCATIONS = [
     'tressider-2019-03-16_1',
     'tressider-2019-04-26_2'
 ]
-
+# ap: 42.3781      cubberly-auditorium-2019-04-22_1
+# ap: 51.9297      discovery-walk-2019-02-28_0
+# ap: 66.4338      discovery-walk-2019-02-28_1
+# ap: 24.9668      food-trucks-2019-02-12_0
+# ap: 66.5530      gates-ai-lab-2019-04-17_0
+# ap: 53.7527      gates-basement-elevators-2019-01-17_0
+# ap: 57.6190      gates-foyer-2019-01-17_0
+# ap: 66.2157      gates-to-clark-2019-02-28_0
+# ap: 54.7739      hewlett-class-2019-01-23_0
+# ap: 60.2489      hewlett-class-2019-01-23_1
+# ap: 53.1290      huang-2-2019-01-25_1
+# ap: 57.9137      huang-intersection-2019-01-22_0
+# ap: 26.3576      indoor-coupa-cafe-2019-02-06_0
+# ap: 61.7608      lomita-serra-intersection-2019-01-30_0
+# ap: 49.7987      meyer-green-2019-03-16_1
+# ap: 45.0746      nvidia-aud-2019-01-25_0
+# ap: 13.0399      nvidia-aud-2019-04-18_1
+# ap: 55.2608      nvidia-aud-2019-04-18_2
+# ap: 29.8957      outdoor-coupa-cafe-2019-02-06_0
+# ap: 47.9586      quarry-road-2019-02-28_0
+# ap: 55.0820      serra-street-2019-01-30_0
+# ap: 65.7004      stlc-111-2019-04-19_1
+# ap: 58.4158      stlc-111-2019-04-19_2
+# ap: 61.6389      tressider-2019-03-16_2
+# ap: 33.5981      tressider-2019-04-26_0
+# ap: 51.3299      tressider-2019-04-26_1
+# ap: 27.5850      tressider-2019-04-26_3
+# Overall: 49.57077286932928
+# (jrdb) tho@tho:~/GoogleDrive/code/jdrb_toolkit_official$ python pose_eval/pose_eval.py --input_path /home/tho/GoogleDrive/code/yolopose/runs/detect/exp38/json_preds_JRDB --pose_path /home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_pose_stitched_coco --box_path /home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_stitched --metric OSPA
+# ospa: 0.5374     cubberly-auditorium-2019-04-22_1
+# ospa: 0.7052     discovery-walk-2019-02-28_0
+# ospa: 0.4849     discovery-walk-2019-02-28_1
+# ospa: 0.3254     food-trucks-2019-02-12_0
+# ospa: 0.3986     gates-ai-lab-2019-04-17_0
+# ospa: 0.5265     gates-basement-elevators-2019-01-17_0
+# ospa: 0.4870     gates-foyer-2019-01-17_0
+# ospa: 0.4828     gates-to-clark-2019-02-28_0
+# ospa: 0.4498     hewlett-class-2019-01-23_0
+# ospa: 0.4544     hewlett-class-2019-01-23_1
+# ospa: 0.4898     huang-2-2019-01-25_1
+# ospa: 0.5281     huang-intersection-2019-01-22_0
+# ospa: 0.4792     indoor-coupa-cafe-2019-02-06_0
+# ospa: 0.5299     lomita-serra-intersection-2019-01-30_0
+# ospa: 0.5757     meyer-green-2019-03-16_1
+# ospa: 0.4868     nvidia-aud-2019-01-25_0
+# ospa: 0.4725     nvidia-aud-2019-04-18_1
+# ospa: 0.6714     nvidia-aud-2019-04-18_2
+# ospa: 0.6056     outdoor-coupa-cafe-2019-02-06_0
+# ospa: 0.5831     quarry-road-2019-02-28_0
+# ospa: 0.6799     serra-street-2019-01-30_0
+# ospa: 0.4429     stlc-111-2019-04-19_1
+# ospa: 0.5630     stlc-111-2019-04-19_2
+# ospa: 0.5451     tressider-2019-03-16_2
+# ospa: 0.5236     tressider-2019-04-26_0
+# ospa: 0.4307     tressider-2019-04-26_1
+# ospa: 0.4972     tressider-2019-04-26_3
+# Overall: 0.5093224196179038
 TEST_LOCATIONS = [
     'cubberly-auditorium-2019-04-22_1',
     'discovery-walk-2019-02-28_0',
@@ -67,7 +125,61 @@ TEST_LOCATIONS = [
     'tressider-2019-04-26_0',
     'tressider-2019-04-26_1',
     'tressider-2019-04-26_3'
+
 ]
+TEST_INDI_LOCATIONS = ['stlc-111-2019-04-19_2_image6', 'tressider-2019-04-26_3_image2', 'outdoor-coupa-cafe-2019-02-06_0_image8',
+        'gates-ai-lab-2019-04-17_0_image6', 'gates-ai-lab-2019-04-17_0_image0',
+        'cubberly-auditorium-2019-04-22_1_image0', 'stlc-111-2019-04-19_1_image4', 'nvidia-aud-2019-04-18_2_image2',
+        'nvidia-aud-2019-04-18_1_image2', 'food-trucks-2019-02-12_0_image6', 'nvidia-aud-2019-01-25_0_image2',
+        'indoor-coupa-cafe-2019-02-06_0_image4', 'cubberly-auditorium-2019-04-22_1_image2',
+        'quarry-road-2019-02-28_0_image2', 'hewlett-class-2019-01-23_1_image2', 'gates-foyer-2019-01-17_0_image8',
+        'food-trucks-2019-02-12_0_image0', 'meyer-green-2019-03-16_1_image2', 'indoor-coupa-cafe-2019-02-06_0_image8',
+        'discovery-walk-2019-02-28_0_image2', 'discovery-walk-2019-02-28_1_image4', 'quarry-road-2019-02-28_0_image0',
+        'gates-ai-lab-2019-04-17_0_image8', 'gates-foyer-2019-01-17_0_image0', 'tressider-2019-04-26_3_image8',
+        'hewlett-class-2019-01-23_0_image2', 'outdoor-coupa-cafe-2019-02-06_0_image0',
+        'hewlett-class-2019-01-23_0_image0', 'quarry-road-2019-02-28_0_image4',
+        'gates-basement-elevators-2019-01-17_0_image0', 'tressider-2019-04-26_0_image8',
+        'nvidia-aud-2019-04-18_2_image0', 'lomita-serra-intersection-2019-01-30_0_image2',
+        'huang-2-2019-01-25_1_image8', 'nvidia-aud-2019-01-25_0_image0', 'quarry-road-2019-02-28_0_image6',
+        'tressider-2019-04-26_0_image0', 'huang-2-2019-01-25_1_image4', 'huang-intersection-2019-01-22_0_image0',
+        'nvidia-aud-2019-04-18_1_image8', 'huang-2-2019-01-25_1_image2', 'meyer-green-2019-03-16_1_image0',
+        'outdoor-coupa-cafe-2019-02-06_0_image4', 'hewlett-class-2019-01-23_1_image8',
+        'cubberly-auditorium-2019-04-22_1_image4', 'hewlett-class-2019-01-23_1_image4', 'stlc-111-2019-04-19_2_image4',
+        'stlc-111-2019-04-19_1_image2', 'nvidia-aud-2019-04-18_1_image6',
+        'gates-basement-elevators-2019-01-17_0_image2', 'indoor-coupa-cafe-2019-02-06_0_image2',
+        'nvidia-aud-2019-01-25_0_image6', 'food-trucks-2019-02-12_0_image8', 'serra-street-2019-01-30_0_image8',
+        'hewlett-class-2019-01-23_0_image6', 'tressider-2019-04-26_3_image0', 'tressider-2019-04-26_1_image4',
+        'serra-street-2019-01-30_0_image6', 'tressider-2019-04-26_0_image2', 'nvidia-aud-2019-01-25_0_image4',
+        'discovery-walk-2019-02-28_0_image0', 'huang-2-2019-01-25_1_image6', 'tressider-2019-04-26_0_image6',
+        'gates-ai-lab-2019-04-17_0_image4', 'cubberly-auditorium-2019-04-22_1_image6',
+        'hewlett-class-2019-01-23_1_image6', 'discovery-walk-2019-02-28_1_image0',
+        'lomita-serra-intersection-2019-01-30_0_image4', 'serra-street-2019-01-30_0_image4',
+        'huang-intersection-2019-01-22_0_image8', 'gates-foyer-2019-01-17_0_image2',
+        'gates-to-clark-2019-02-28_0_image8', 'outdoor-coupa-cafe-2019-02-06_0_image2',
+        'nvidia-aud-2019-04-18_1_image0', 'nvidia-aud-2019-04-18_2_image6', 'stlc-111-2019-04-19_2_image0',
+        'tressider-2019-04-26_3_image4', 'huang-2-2019-01-25_1_image0', 'gates-to-clark-2019-02-28_0_image2',
+        'lomita-serra-intersection-2019-01-30_0_image0', 'nvidia-aud-2019-04-18_2_image8',
+        'quarry-road-2019-02-28_0_image8', 'nvidia-aud-2019-01-25_0_image8', 'meyer-green-2019-03-16_1_image6',
+        'stlc-111-2019-04-19_1_image0', 'hewlett-class-2019-01-23_1_image0',
+        'gates-basement-elevators-2019-01-17_0_image4', 'huang-intersection-2019-01-22_0_image6',
+        'tressider-2019-03-16_2_image4', 'lomita-serra-intersection-2019-01-30_0_image8',
+        'tressider-2019-04-26_1_image6', 'meyer-green-2019-03-16_1_image8', 'stlc-111-2019-04-19_2_image8',
+        'gates-ai-lab-2019-04-17_0_image2', 'outdoor-coupa-cafe-2019-02-06_0_image6', 'tressider-2019-04-26_0_image4',
+        'indoor-coupa-cafe-2019-02-06_0_image6', 'hewlett-class-2019-01-23_0_image4',
+        'gates-basement-elevators-2019-01-17_0_image6', 'discovery-walk-2019-02-28_0_image6',
+        'tressider-2019-04-26_1_image2', 'gates-foyer-2019-01-17_0_image6', 'tressider-2019-04-26_1_image8',
+        'gates-to-clark-2019-02-28_0_image0', 'gates-to-clark-2019-02-28_0_image6', 'hewlett-class-2019-01-23_0_image8',
+        'food-trucks-2019-02-12_0_image2', 'cubberly-auditorium-2019-04-22_1_image8', 'tressider-2019-03-16_2_image0',
+        'stlc-111-2019-04-19_2_image2', 'discovery-walk-2019-02-28_0_image8', 'tressider-2019-03-16_2_image6',
+        'serra-street-2019-01-30_0_image0', 'tressider-2019-03-16_2_image8', 'stlc-111-2019-04-19_1_image8',
+        'lomita-serra-intersection-2019-01-30_0_image6', 'tressider-2019-04-26_3_image6',
+        'food-trucks-2019-02-12_0_image4', 'stlc-111-2019-04-19_1_image6', 'huang-intersection-2019-01-22_0_image4',
+        'discovery-walk-2019-02-28_0_image4', 'huang-intersection-2019-01-22_0_image2',
+        'nvidia-aud-2019-04-18_1_image4', 'tressider-2019-03-16_2_image2', 'serra-street-2019-01-30_0_image2',
+        'gates-basement-elevators-2019-01-17_0_image8', 'gates-to-clark-2019-02-28_0_image4',
+        'discovery-walk-2019-02-28_1_image6', 'discovery-walk-2019-02-28_1_image8',
+        'discovery-walk-2019-02-28_1_image2', 'tressider-2019-04-26_1_image0', 'nvidia-aud-2019-04-18_2_image4',
+        'gates-foyer-2019-01-17_0_image4', 'indoor-coupa-cafe-2019-02-06_0_image0', 'meyer-green-2019-03-16_1_image4']
 
 def get_per_kp_oks_matrix(gt_annots, pr_annots, sigmas=[
         0.079, 0.025, 0.025, 0.079, 0.026, 0.079, 0.072, 0.072, 0.107, 
@@ -445,6 +557,17 @@ def average_precision_for_loc(gt_dir, pr_dir, box_dir, location, oks_threshold=0
         gtFrames = gt_annots_by_iid[all_iids[iid]]
         prFrames = pr_annots_by_iid[all_iids[iid]]
 
+        # img = cv2.imread(f"/home/tho/datasets/JRDB2022/test_dataset_without_labels/images/image_stitched/{location}/{gtFrames[0]['image_id']-1:06d}.jpg")
+        # for p in prFrames:
+        #     kpts = np.array(p['keypoints']).reshape([-1,3])
+        #     kpts = kpts[:,:2]
+        #     for point in kpts:
+        #         cv2.circle(img, (int(point[0]),int(point[1])),
+        #                    radius=2, color=[255,255,255],thickness=3)
+        #         cv2.imshow('debug', img)
+        #         cv2.waitKey(0)
+
+
         if iid_to_filename(all_iids[iid]) in boxes['labels']:
             boxes_iid = boxes['labels'][iid_to_filename(all_iids[iid])] 
         else:
@@ -571,7 +694,8 @@ def compute_ospa_pose(pred_path,
     ospa_dict = {}
     all_ospas = []
 
-    for location in TEST_LOCATIONS:
+    # for location in TEST_INDI_LOCATIONS:
+    for location in LOCATIONS:
         ospa_list = ospa_for_loc(gt_path, real_pred_folder, box_path, location)
         all_ospas.append(ospa_list)
         ospa_dict[location] = np.mean(ospa_list).item()
@@ -610,7 +734,8 @@ def compute_ap_pose(pred_path,
     ap_dict = {}
     all_aps = []
 
-    for location in TEST_LOCATIONS:
+    # for location in TEST_INDI_LOCATIONS:
+    for location in LOCATIONS:
         ap_list, _ = average_precision_for_loc(gt_path, real_pred_folder, box_path, location)
         all_aps.append(ap_list)
         ap_dict[location] = np.mean(ap_list).item()
@@ -633,6 +758,11 @@ if __name__ == "__main__":
     parser.add_argument('--box_path', type=str, help="the box directory for JRDB (e.g. ../labels_2d_stitched)")
     parser.add_argument('--metric', choices=['OSPA', 'AP'])
     args = parser.parse_args()
+    global LOCATIONS
+    if "stitched" not in args.pose_path:
+        LOCATIONS = TEST_INDI_LOCATIONS
+    else:
+        LOCATIONS = TEST_LOCATIONS
 
     if args.metric == 'OSPA':
         compute_ospa_pose(pred_path=args.input_path,

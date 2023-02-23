@@ -13,8 +13,8 @@ if __name__ == '__main__':
     default_dataset_config = trackeval.datasets.JRDBPose.get_default_dataset_config()
     default_metrics_config = {'METRICS': [
         # 'HOTAKeypoints',
-        # 'CLEAR',
-        # 'Identity',
+        'CLEAR',
+        'Identity',
         'OSPA2'
     ]}
     config = {**default_eval_config, **default_dataset_config, **default_metrics_config}  # Merge default configs

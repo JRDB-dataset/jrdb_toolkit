@@ -2,7 +2,7 @@ from ._base_metric import _BaseMetric
 from .. import _timing
 import numpy as np
 from scipy.optimize import linear_sum_assignment
-
+from copy import deepcopy
 class OSPA2(_BaseMetric):
     def __init__(self):
         self.joint_names = ['head',
@@ -23,7 +23,10 @@ class OSPA2(_BaseMetric):
                             'right foot',
                             'left foot']
         self.n_joints = 17
-        self.loss_fields = ['OSPA', 'OSPA_CARD', 'OSPA_LOC']
+        self.loss_fields = ['OSPA', 'OSPA_CARD', 'OSPA_LOC','OSPA_INVI',
+                            'OSPA_OCCL', 'OSPA_VIS']
+        self.occl_level = {0:'OSPA_INVI', 1:'OSPA_OCCL', 2:'OSPA_VIS', 3:'OSPA'}
+        self.occl_level_avg = {0:'OSPA_INVI_AVG', 1:'OSPA_OCCL_AVG', 2:'OSPA_VIS_AVG'}
         self.fields = self.loss_fields
         self.summary_fields = self.loss_fields
 
@@ -38,34 +41,73 @@ class OSPA2(_BaseMetric):
         for field in self.fields:
             res[field] = 0
 
+        keypoint_visibilities = data['keypoint_visibilities']
+        # for occ_lvl in range(4):
+            # if occ_lvl < 3:
+            #     similarity_scores = deepcopy(data['oks_kpts_sims'])
+            # else:
+        per_kpt_sim = deepcopy(data['oks_kpts_sims'])
+        similarity_scores = deepcopy(data['similarity_scores'])
+        dist_sum = {i: np.zeros((data['num_gt_ids'], data['num_tracker_ids'])) for i in range(4)}
+        dist_per_occl = {i: np.zeros((data['num_gt_ids'], data['num_tracker_ids'])) for i in range(4)}
 
-        dist_sum = np.zeros((data['num_gt_ids'], data['num_tracker_ids']))
         counts = np.zeros((data['num_gt_ids'], data['num_tracker_ids']))
-        for t, (gt_ids_t, tracker_ids_t,) in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
 
-            dist = 1 - data['similarity_scores'][t]
-            dist_t = np.zeros((data['num_gt_ids'],data['num_tracker_ids'],))
+        for t, (gt_ids_t, tracker_ids_t,), in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
+            if len(tracker_ids_t) == 0:
+                continue
+            # if occ_lvl < 3:
+            #     kpts_sim_t = similarity_scores[t] * (keypoint_visibilities[t] == occ_lvl)[:, np.newaxis, :]
+            #     kpts_sim_t[kpts_sim_t == 0] = 1
+            #     dist = np.mean(1 - kpts_sim_t,axis=-1)
+            # else:
+            #     oks_sim_t = deepcopy(similarity_scores[t])
+            #     dist = 1 - oks_sim_t
+            for occ_lvl in range(4):
+                if occ_lvl < 3:
+                    mask = np.stack([keypoint_visibilities[t]==occ_lvl]*len(tracker_ids_t), axis=1)
+                    kpts_sim_t = per_kpt_sim[t] * mask
+                    # kpts_sim_t = per_kpt_sim[t][mask]
+                    # kpts_sim_t[kpts_sim_t ==0] = 1
+                    # dist = np.sum(1 - kpts_sim_t,axis=-1)/kpts_sim_t.shape[-1]
+                    dist = (1 - kpts_sim_t) * mask
+                    # dist[dist == 1] = 0
+                    dist = np.sum(dist,axis=-1)/np.maximum(1,np.sum(dist>0,axis=-1))
+                    # dist = np.sum(dist,axis=-1)/np.sum(np.maximum(1, dist>0), axis=-1)
+                    dist_t = np.zeros((data['num_gt_ids'], data['num_tracker_ids'],))
 
-            dist_t[gt_ids_t] = 1
-            counts[gt_ids_t] += 1
-            dist_t[:,tracker_ids_t] = 1
-            counts[:,tracker_ids_t] += 1
+                    # dist_t[gt_ids_t] = 1- mask.mean(-1,keepdims=True)[:,0]
+                    dist_t[gt_ids_t] = 1
+                    dist_t[:, tracker_ids_t] = 1
+                    dist_t[gt_ids_t[:, None], tracker_ids_t] = dist
+                    dist_sum[occ_lvl] += dist_t
 
-            dist_t[gt_ids_t[:,None],tracker_ids_t] = dist
-            counts[gt_ids_t[:,None],tracker_ids_t] -= 1
-            dist_sum += dist_t
+                else:
+                    dist = 1 - similarity_scores[t]
+                    dist_t = np.zeros((data['num_gt_ids'],data['num_tracker_ids'],))
+
+                    dist_t[gt_ids_t] = 1
+                    counts[gt_ids_t] += 1
+                    dist_t[:,tracker_ids_t] = 1
+                    counts[:,tracker_ids_t] += 1
+
+                    dist_t[gt_ids_t[:,None],tracker_ids_t] = dist
+                    counts[gt_ids_t[:,None],tracker_ids_t] -= 1
+                    dist_sum[occ_lvl] += dist_t
 
         counts[counts == 0] = 1
-        trk_dist = dist_sum / counts
+        trk_dist = dist_sum[3] / counts
 
-        match_rows, match_cols = linear_sum_assignment(trk_dist)
-        cost = np.sum(trk_dist[match_rows, match_cols])
-        m=data['num_gt_ids']
-        n=data['num_tracker_ids']
-        ospa2 = np.power(((1 * np.absolute(m-n) + cost) / max(m,n)), 1)
-        term1 = np.absolute(m-n) / max(m,n)
-        term2 = cost / max(m,n)
-        res['OSPA']=ospa2
+        match_rows, match_cols, = linear_sum_assignment(trk_dist)
+        for occ_lvl in range(4):
+            cost_per_occ = dist_sum[occ_lvl] / counts
+            cost = np.sum(cost_per_occ[match_rows, match_cols])
+            m=data['num_gt_ids']
+            n=data['num_tracker_ids']
+            ospa2 = np.power(((1 * np.absolute(m-n) + cost) / max(m,n)), 1)
+            term1 = np.absolute(m-n) / max(m,n)
+            term2 = cost / max(m,n)
+            res[self.occl_level[occ_lvl]]=ospa2
         res['OSPA_CARD']=term1
         res['OSPA_LOC']=term2
         return res

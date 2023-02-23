@@ -10,11 +10,11 @@ from ..utils import TrackEvalException, count_valid_joints
 import json
 from shapely import geometry
 from pathlib import Path
+import cv2
 
-WIDTH, HEIGHT = 3760, 480
-IOU_THRESHOLD = 0.5
+UNLABELED_VS_PREDS_IOU_THRESHOLD = 0.8
+UNLABELED_VS_LABELED_IOU_THRESHOLD = 0.3
 
-IMAGE_AREA = WIDTH * HEIGHT
 SIGMAS = np.array([
     0.079, 0.025, 0.025, 0.079, 0.026, 0.079, 0.072, 0.072, 0.107,
     0.062, 0.107, 0.107, 0.062, 0.087, 0.087, 0.089, 0.089
@@ -35,8 +35,8 @@ def matrix_iou(X, Y):
     """Calculates IoU between each box in X and each box in Y.
     """
     if not np.any(np.any(X[2:4, :] > X[0:2, :])):
-        print(
-            "The coordinates of the second corner of a rectangle should be bigger than the coordinates of the first corner")
+        # print(
+        #     "The coordinates of the second corner of a rectangle should be bigger than the coordinates of the first corner")
         return np.zeros((Y.shape[1], X.shape[1]))
 
     # Calculate sizes of the input point patterns
@@ -124,7 +124,7 @@ class JRDBPose(_BaseDataset):
                     raise TrackEvalException(f"DET file {det_file} not found for tracker {tracker}")
 
     def _get_seq_info(self):
-        sequence_files = os.listdir(self.gt_fol)
+        sequence_files = [file for file in sorted(os.listdir(self.gt_fol)) if '.json' in file]
         seq_lengths = dict()
 
         # reading sequence lengths
@@ -142,8 +142,8 @@ class JRDBPose(_BaseDataset):
     @staticmethod
     def get_default_dataset_config():
         default_config = {
-            'GT_FOLDER': "/home/tho/datasets/JRDB2022/train_dataset_with_activity/labels/labels_2d_pose_stitched_coco",
-            'TRACKERS_FOLDER': "/home/tho/datasets/JRDB2022/train_dataset_with_activity/labels/labels_2d_pose_stitched_coco",
+            'GT_FOLDER': "/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_pose_stitched_coco/",
+            'TRACKERS_FOLDER': "/home/tho/GoogleDrive/JRDBPose_experiments/Tracking/OCTrack/Stitched/scratch/json_tracks/",
             # Trackers location
             "PRINT_CONFIG": True,
             "ASSURE_SINGLE_TRACKER": False
@@ -156,7 +156,7 @@ class JRDBPose(_BaseDataset):
         cls_id = 1  # we only have class person
 
         data_keys = ['gt_ids', 'tracker_ids', 'gt_dets', 'tracker_dets', 'tracker_confidences', 'similarity_scores',
-                     'keypoint_distances', 'oks_kpts_sims',
+                     'keypoint_visibilities', 'oks_kpts_sims',
                      'keypoint_matches', 'original_gt_ids', 'original_tracker_ids']
         data = {key: [None] * raw_data['num_timesteps'] for key in data_keys}
         unique_gt_ids = []
@@ -233,7 +233,7 @@ class JRDBPose(_BaseDataset):
         y1 = keypoints[:, :, 1].max(axis=1)
 
         for i in range(len(x0)):
-            if abs(x1[i] - x0[i]) > 500:
+            if abs(x1[i] - x0[i]) > 400:
                 x0[i] += WIDTH
                 x0[i], x1[i] = x1[i], x0[i]
         w = x1 - x0
@@ -254,31 +254,46 @@ class JRDBPose(_BaseDataset):
         [tracker_dets]: list (for each timestep) of lists of detections.
         """
         # File location
+        global WIDTH
         if is_gt:
             file_path = os.path.join(self.gt_fol, seq)
-            with open(os.path.join(self.all_labels_fol, "labels_2d_stitched", seq), "r") as f:
+
+            if 'image' not in seq:
+                label_ver = 'labels_2d_stitched'
+                WIDTH = 3760
+            else:
+                label_ver = 'labels_2d'
+                WIDTH = 752
+
+
+            with open(os.path.join(self.all_labels_fol, label_ver, seq), "r") as f:
                 labels_2d = json.load(f)['labels']
-            with open(os.path.join(self.all_labels_fol, "labels_2d_head_stitched", seq), "r") as f:
-                labels_heads = json.load(f)
+            # with open(os.path.join(self.all_labels_fol, "labels_2d_head_stitched", seq), "r") as f:
+            #     labels_heads = json.load(f)
 
         else:
             file_path = os.path.join(self.tracker_fol, tracker, seq)
         with open(file_path, 'r') as f:
             read_data = json.load(f)
+        if 'images' in read_data.keys():
+            image_data = {img['id']: {**img, 'annotations': []} for img in read_data['images']}
+        else:
+            image_data = {i:{'annotations': []} for i in range(1,self.seq_lengths[seq]+1)}
 
-        image_data = {img['id']: {**img, 'annotations': []} for img in read_data['images']}
-        image_ids = list(image_data.keys())
 
         for ann in read_data['annotations']:
             im_id = ann['image_id']
+            # if im_id not in image_data.keys():
+            #     image_data[im_id] = {}
+            #     image_data[im_id]['annotations'] = []
             image_data[im_id]['annotations'].append(ann)
-
+        image_ids = list(image_data.keys())
         if is_gt:
-            for head_ann in labels_heads['annotations']:
-                im_id = head_ann['image_id']
-                for ped in image_data[im_id]['annotations']:
-                    if ped['track_id'] == head_ann['track_id']:
-                        ped['bbox_head'] = head_ann['bbox']
+            # for head_ann in labels_heads['annotations']:
+            #     im_id = head_ann['image_id']
+            #     for ped in image_data[im_id]['annotations']:
+            #         if ped['track_id'] == head_ann['track_id']:
+            #             ped['bbox_head'] = head_ann['bbox']
 
             for im_id, v in image_data.items():
                 im_name = v['file_name'][-10:]
@@ -312,7 +327,7 @@ class JRDBPose(_BaseDataset):
         if is_gt:
             data_keys += [
                 # 'gt_crowd_ignore_regions',
-                # 'gt_extras',
+                'gt_extras',
                 'head_sizes',
                 'body_sizes',
                 'ignore_regions',
@@ -342,13 +357,22 @@ class JRDBPose(_BaseDataset):
                 track_ids.append(p['track_id'])
                 keypoints.append(p['keypoints'])
 
-                if p['track_id'] not in frame_box_annotations:
-                    keys = np.array(p['keypoints']).reshape([-1, self.n_raw_joints, 3])
-                    box_2d = self.get_box_from_kpts(keys).transpose()[0]
-                    bboxes_2d.append(box_2d)
-                else:
-                    bboxes_2d.append(frame_box_annotations[p['track_id']])
-                    frame_box_annotations.pop(p['track_id'])
+                keys = np.array(p['keypoints']).reshape([-1, self.n_raw_joints, 3])
+                box_2d = self.get_box_from_kpts(keys).transpose()[0]
+                bboxes_2d.append(box_2d)
+
+                # if p['track_id'] not in frame_box_annotations.keys():
+                #     keys = np.array(p['keypoints']).reshape([-1, self.n_raw_joints, 3])
+                #     box_2d = self.get_box_from_kpts(keys).transpose()[0]
+                #     bboxes_2d.append(box_2d)
+                # else:
+                #     keys = np.array(p['keypoints']).reshape([-1, self.n_raw_joints, 3])
+                #     box_2d = self.get_box_from_kpts(keys).transpose()[0]
+                #     bboxes_2d.append(box_2d)
+                #     bboxes_2d.append(frame_box_annotations[p['track_id']])
+                #     frame_box_annotations.pop(p['track_id'])
+
+
 
                 if "scores" not in p:
                     p_score = [-9999 for _ in range(self.n_raw_joints)]
@@ -385,6 +409,7 @@ class JRDBPose(_BaseDataset):
                 raw_data['box_wo_keypoints'][t] = frame_box_annotations
                 if not is_gt:
                     raw_data['tracker_confidences'][t] = scores
+                    # raw_data['body_sizes'][t] = bboxes_2d[:, 2] * bboxes_2d[:, 3]
                 elif len(keypoints) > 0:
                     raw_data['is_labeled'][t] = True
                     raw_data['head_sizes'][t] = head_sizes
@@ -406,7 +431,7 @@ class JRDBPose(_BaseDataset):
                 raw_data['classes'][t] = np.empty(0).astype(int)
                 raw_data['boxes_2d'][t] = np.empty(0).astype(int)
                 raw_data['box_wo_keypoints'][t] = np.empty(0).astype(int)
-                raw_data['body_sizes'][t] = np.empty(0).astype(int)
+                # raw_data['body_sizes'][t] = np.empty(0).astype(int)
                 if is_gt:
                     gt_extras_dict = {'zero_marked': np.empty(0)}
                     raw_data['gt_extras'][t] = gt_extras_dict
@@ -469,45 +494,73 @@ class JRDBPose(_BaseDataset):
                                                                                    raw_gt_data_new['gt_box_wo_keypoints'],
                                                                     raw_tracker_data_new['tracker_boxes_2d'])):
             unlabeled_gt_boxes_k = gt_boxes_wo_kpts.keys()
-            # tracker_boxes = np.vstack([tracker_boxes,[[0,50,74,74],[0,0,100,50],[0,0,75,75],[0,0,50,100]]])
-            # unlabeled_gt_boxes[100] = [0,50,74,74]
-            if len(gt_boxes_wo_kpts) == 0:
-                gt_boxes_wo_kpts = np.array([[0, 0, 1, 1]])
-            else:
-                gt_boxes_wo_kpts = xywh2xyxy(np.stack(gt_boxes_wo_kpts.values()))
-            gt_boxes_w_kpts = xywh2xyxy(np.array(gt_boxes_w_kpts)).transpose()
-            gt_boxes_wo_kpts = gt_boxes_wo_kpts.transpose()
-            ious = matrix_iou(gt_boxes_w_kpts, gt_boxes_wo_kpts) > IOU_THRESHOLD
-            gt_wo_kpts_idx, gt_w_kpts_idx = linear_sum_assignment(ious, maximize=True)
-            gt_wo_kpts_matched = gt_wo_kpts_idx[ious[gt_wo_kpts_idx, gt_w_kpts_idx] == True]
-            if len(gt_wo_kpts_matched) > 0:
-                gt_boxes_wo_kpts = np.delete(gt_boxes_wo_kpts.transpose(), gt_wo_kpts_matched, axis=0).transpose()
 
-            tracker_boxes = xywh2xyxy(np.array(tracker_boxes)).transpose()
-            ious = matrix_iou(gt_boxes_wo_kpts, tracker_boxes) > IOU_THRESHOLD
-            pr_box_idx, gt_box_idx = linear_sum_assignment(ious, maximize=True)
-            pr_box_matched = pr_box_idx[ious[pr_box_idx, gt_box_idx] == True]
+            # gt_boxes_w_kpts = np.vstack(
+            #     [gt_boxes_w_kpts, [[0, 50, 74, 100], [0, 0, 100, 120], [0, 0, 75, 100], [0, 0, 50, 30]]])
+            # gt_boxes_wo_kpts[100] = [0, 50, 74, 100]
+            # gt_boxes_wo_kpts[101] = [0, 0, 100, 120]
+            # gt_boxes_wo_kpts[102] = [0, 0, 75, 75]
+            # gt_boxes_wo_kpts[103] = [0, 0, 50, 100]
+
+            if len(gt_boxes_wo_kpts) > 0:
+                gt_boxes_wo_kpts = xywh2xyxy(np.stack(gt_boxes_wo_kpts.values())).transpose()
+            else:
+                gt_boxes_wo_kpts = []
+
+            gt_boxes_w_kpts = xywh2xyxy(np.array(gt_boxes_w_kpts)).transpose()
+
+
+            if len(gt_boxes_wo_kpts) != 0:
+                gt_wo_kpts_matched = [-1]
+                while len(gt_wo_kpts_matched) != 0:
+                    ious = matrix_iou(gt_boxes_w_kpts, gt_boxes_wo_kpts) > UNLABELED_VS_LABELED_IOU_THRESHOLD
+                    gt_wo_kpts_idx, gt_w_kpts_idx = linear_sum_assignment(ious, maximize=True)
+                    gt_wo_kpts_matched = gt_wo_kpts_idx[ious[gt_wo_kpts_idx, gt_w_kpts_idx] == True]
+                    if len(gt_wo_kpts_matched) > 0:
+                        gt_boxes_wo_kpts = np.delete(gt_boxes_wo_kpts.transpose(), gt_wo_kpts_matched, axis=0).transpose()
+
+            if len(tracker_boxes) > 0:
+                tracker_boxes = xywh2xyxy(np.array(tracker_boxes)).transpose()
+            else:
+                tracker_boxes = []
+
+            # tracker_boxes = xywh2xyxy(np.array(tracker_boxes)).transpose()
+            if len(tracker_boxes) != 0 and len(gt_boxes_wo_kpts)!=0:
+                ious = matrix_iou(gt_boxes_wo_kpts, tracker_boxes) > UNLABELED_VS_PREDS_IOU_THRESHOLD
+                pr_box_idx, gt_box_idx = linear_sum_assignment(ious, maximize=True)
+                pr_box_matched = pr_box_idx[ious[pr_box_idx, gt_box_idx] == True]
+            else:
+                pr_box_matched = []
+            # if len(pr_box_matched)>0:
+            #     img_1 = np.zeros([HEIGHT,WIDTH,  3], dtype=np.uint8)
+            #     for b in gt_boxes_wo_kpts.transpose():
+            #         img_1 = draw_box_2d(img_1,b,[255,0,0])
+            #     for b in tracker_boxes.transpose():
+            #         img_1 = draw_box_2d(img_1,b,[0,0,255])
+            #     cv2.imshow('image',img_1)
+            #     cv2.waitKey(0)
+            #     cv2.destroyAllWindows()
             for k in raw_tracker_data_new.keys():
                 if k not in ['num_timesteps', 'seq', 'image_ids', 'tracker_box_wo_keypoints']:
                     raw_tracker_data_new[k][i] = np.delete(raw_tracker_data_new[k][i], pr_box_matched, axis=0)
 
         raw_data = {**raw_tracker_data_new, **raw_gt_data_new}  # Merges dictionaries
         similarity_scores = []
-        keypoint_distances = []
+        keypoint_visibilities = []
         keypoint_matches = []
         oks_kpts_sims = []
 
         for t, (gt_dets_t, tracker_dets_t, head_sizes_t, body_sizes_t) in enumerate(
                 zip(raw_data['gt_dets'], raw_data['tracker_dets'], raw_data['head_sizes'], raw_data['body_sizes'])):
             assert len(gt_dets_t) == len(head_sizes_t)
-            pckhs, distances, matches,oks_kpts_sim = self._calculate_p_similarities(gt_dets_t, tracker_dets_t, head_sizes_t,
+            pckhs, kpts_visibility, matches,oks_kpts_sim = self._calculate_p_similarities(gt_dets_t, tracker_dets_t, head_sizes_t,
                                                                        body_sizes_t)
             similarity_scores.append(pckhs)
-            keypoint_distances.append(distances)
+            keypoint_visibilities.append(kpts_visibility)
             keypoint_matches.append(matches)
             oks_kpts_sims.append(oks_kpts_sim)
         raw_data['similarity_scores'] = similarity_scores
-        raw_data['keypoint_distances'] = keypoint_distances
+        raw_data['keypoint_visibilities'] = keypoint_visibilities
         raw_data['keypoint_matches'] = keypoint_matches
         raw_data['oks_kpts_sims'] = oks_kpts_sims
         return raw_data
@@ -533,6 +586,7 @@ class JRDBPose(_BaseDataset):
         dist = np.full((len(gt_dets_t), len(tracker_dets_t), self.n_joints), np.inf)
         oks_kpts_sim = np.full((len(gt_dets_t), len(tracker_dets_t), self.n_joints), np.inf)
         oks_similarities = np.full((len(gt_dets_t), len(tracker_dets_t)), np.inf)
+        kpts_v = np.zeros([len(gt_dets_t), self.n_joints])
 
         # joint_has_gt = (gt_dets_t[:, :, 0] > 0) & (gt_dets_t[:, :, 1] > 0)
         # joint_has_pr = (tracker_dets_t[:, :, 0] > 0) & (tracker_dets_t[:, :, 1] > 0)
@@ -542,7 +596,7 @@ class JRDBPose(_BaseDataset):
         # joint_has_pr = np.tile(True, [tracker_dets_t.shape[0],tracker_dets_t.shape[1]])
 
         for gt_i in range(len(gt_dets_t)):
-            head_size_i = head_sizes_t[gt_i]
+            # head_size_i = head_sizes_t[gt_i]
             body_sizes_i = body_sizes_t[gt_i]
 
             for det_i in range(len(tracker_dets_t)):
@@ -555,6 +609,7 @@ class JRDBPose(_BaseDataset):
 
                 # For OKS distance
                 x_gt, y_gt = gt_dets_t[gt_i, :, 0], gt_dets_t[gt_i, :, 1]
+                kpts_v[gt_i] = gt_dets_t[gt_i,:,2] # visibility
                 x_det, y_det = tracker_dets_t[det_i, :, 0], tracker_dets_t[det_i, :, 1]
                 v = gt_dets_t[gt_i, :, 2] + 1
                 vars = (SIGMAS * 2) ** 2
@@ -574,14 +629,26 @@ class JRDBPose(_BaseDataset):
         #         if nGTp[i] > 0:
         #             pck[i, j] = pck[i, j] / nGTp[i]
 
-        return oks_similarities, None, match, oks_kpts_sim
+        return oks_similarities, kpts_v, match, oks_kpts_sim
         # return oks_similarities, dist, match, oks_kpts_sim
 
 
     def _calculate_p_similarities(self, gt_dets_t, tracker_dets_t, head_sizes_t, body_sizes_t):
-        similarity_scores, distances, matches,oks_kpts_sim = self._calculate_pckh(gt_dets_t, tracker_dets_t, head_sizes_t,
+        similarity_scores, kpts_v, matches,oks_kpts_sim = self._calculate_pckh(gt_dets_t, tracker_dets_t, head_sizes_t,
                                                                      body_sizes_t)
-        return similarity_scores, distances, matches,oks_kpts_sim
+        return similarity_scores, kpts_v, matches,oks_kpts_sim
 
     def _calculate_similarities(self, gt_dets_t, tracker_dets_t):
         raise NotImplementedError("Not implemented")
+
+
+
+def draw_box_2d(image, box, color=(0, 0, 255), thickness=2, text=None, occluded=0
+                ):
+    style = 'dashed' if occluded == 1 else None
+    x0, y0, x1, y1 = list(map(int, box))
+    cv2.line(image, (x0, y0), (x0, y1), color, thickness, lineType=cv2.LINE_AA)
+    cv2.line(image, (x1, y0), (x1, y1), color, thickness, lineType=cv2.LINE_AA)
+    cv2.line(image, (x0, y0), (x1, y0), color, thickness, lineType=cv2.LINE_AA)
+    cv2.line(image, (x0, y1), (x1, y1), color, thickness, lineType=cv2.LINE_AA)
+    return image

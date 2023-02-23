@@ -1798,3 +1798,1169 @@ NotImplementedError: Summary function not implemented for this field type.
 
 
 
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 482, in get_raw_seq_data
+    gt_boxes_w_kpts = np.vstack(
+  File "<__array_function__ internals>", line 180, in vstack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 282, in vstack
+    return _nx.concatenate(arrs, 0)
+  File "<__array_function__ internals>", line 180, in concatenate
+ValueError: all the input array dimensions for the concatenation axis must match exactly, but along dimension 1, the array at index 0 has size 9 and the array at index 1 has size 4
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 476, in get_raw_seq_data
+    gt_boxes_wo_kpts = np.vstack(
+  File "<__array_function__ internals>", line 180, in vstack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 282, in vstack
+    return _nx.concatenate(arrs, 0)
+  File "<__array_function__ internals>", line 180, in concatenate
+ValueError: all the input array dimensions for the concatenation axis must match exactly, but along dimension 1, the array at index 0 has size 1 and the array at index 1 has size 4
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 476, in get_raw_seq_data
+    gt_boxes_wo_kpts = np.vstack(
+  File "<__array_function__ internals>", line 180, in vstack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 282, in vstack
+    return _nx.concatenate(arrs, 0)
+  File "<__array_function__ internals>", line 180, in concatenate
+ValueError: all the input array dimensions for the concatenation axis must match exactly, but along dimension 1, the array at index 0 has size 1 and the array at index 1 has size 4
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 488, in get_raw_seq_data
+    while len(gt_wo_kpts_matched) != 0:
+UnboundLocalError: local variable 'gt_wo_kpts_matched' referenced before assignment
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 489, in get_raw_seq_data
+    while len(gt_wo_kpts_matched) != 0:
+TypeError: object of type 'int' has no len()
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 505, in get_raw_seq_data
+    cv2.imshow(img_1)
+cv2.error: OpenCV(4.5.3) :-1: error: (-5:Bad argument) in function 'imshow'
+> Overload resolution failed:
+>  - imshow() missing required argument 'mat' (pos 2)
+>  - imshow() missing required argument 'mat' (pos 2)
+>  - imshow() missing required argument 'mat' (pos 2)
+
+
+
+
+
+
+JRDBPose
+labels_2d_pose_stitched_coco
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 505, in get_raw_seq_data
+    img_1 = draw_box_2d(img_1,b,[0,0,255])
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 627, in draw_box_2d
+    x0, y0, x1, y1 = list(map(int, box))
+ValueError: not enough values to unpack (expected 4, got 3)
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 464, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 263, in _load_raw_file
+    with open(os.path.join(self.all_labels_fol, "labels_2d_head_stitched", seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_head_stitched/gates-to-clark-2019-02-28_0.json'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_head_stitched/gates-to-clark-2019-02-28_0.json'
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 464, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 423, in _load_raw_file
+    raw_data['gt_extras'][t] = gt_extras_dict
+KeyError: 'gt_extras'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+KeyError: 'gt_extras'
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 465, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 271, in _load_raw_file
+    image_data = {img['id']: {**img, 'annotations': []} for img in read_data['images']}
+KeyError: 'images'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+KeyError: 'images'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 465, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 271, in _load_raw_file
+    image_data = {img['id']: {**img, 'annotations': []} for img in read_data['images']}
+KeyError: 'images'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 469, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 279, in _load_raw_file
+    image_data[im_id]['annotations'] = []
+KeyError: 1
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 470, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 333, in _load_raw_file
+    im_id = image_ids[t]
+IndexError: list index out of range
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 470, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 333, in _load_raw_file
+    im_id = image_ids[t]
+IndexError: list index out of range
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 470, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 273, in _load_raw_file
+    image_data = {i:{'annotations': []} for i in range(1,self.seq_lengths+1)}
+TypeError: unsupported operand type(s) for +: 'dict' and 'int'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 470, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 425, in _load_raw_file
+    raw_data['body_sizes'][t] = np.empty(0).astype(int)
+KeyError: 'body_sizes'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 471, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 404, in _load_raw_file
+    raw_data['body_sizes'][t] = bboxes_2d[:, 2] * bboxes_2d[:, 3]
+KeyError: 'body_sizes'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 513, in get_raw_seq_data
+    tracker_boxes = xywh2xyxy(np.array(tracker_boxes)).transpose()
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 29, in xywh2xyxy
+    r[:, 0] = boxes[:, 0]
+IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 513, in get_raw_seq_data
+    tracker_boxes = xywh2xyxy(np.array(tracker_boxes)).transpose()
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 29, in xywh2xyxy
+    r[:, 0] = boxes[:, 0]
+IndexError: too many indices for array: array is 1-dimensional, but 2 were indexed
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 518, in get_raw_seq_data
+    ious = matrix_iou(gt_boxes_wo_kpts, tracker_boxes) > UNLABELED_VS_PREDS_IOU_THRESHOLD
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 46, in matrix_iou
+    m = Y.shape[1]
+AttributeError: 'list' object has no attribute 'shape'
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/hota_pose.py", line 98, in eval_sequence
+    fragments = np.zeros(
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 330. GiB for an array with shape (19, 150, 750, 17, 1220) and data type int64
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+numpy.core._exceptions._ArrayMemoryError: Unable to allocate 330. GiB for an array with shape (19, 150, 750, 17, 1220) and data type int64
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 549, in get_raw_seq_data
+    kpts_visibilities.append(kpts_visibilities)
+AttributeError: 'numpy.ndarray' object has no attribute 'append'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 82, in eval_sequence
+    res[self.occl_level[occ_lvl]]['OSPA']=ospa2
+TypeError: 'int' object does not support item assignment
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 67, in eval_sequence
+    kpts_sim_t = per_kpt_sim[t] * np.stack([keypoint_visibilities[t]==occ_lvl]*len(tracker_ids_t), axis=1)
+  File "<__array_function__ internals>", line 180, in stack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 422, in stack
+    raise ValueError('need at least one array to stack')
+ValueError: need at least one array to stack
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+ValueError: need at least one array to stack
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 67, in eval_sequence
+    kpts_sim_t = per_kpt_sim[t] * np.stack([keypoint_visibilities[t]==occ_lvl]*len(tracker_ids_t), axis=1)
+  File "<__array_function__ internals>", line 180, in stack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 422, in stack
+    raise ValueError('need at least one array to stack')
+ValueError: need at least one array to stack
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+ValueError: need at least one array to stack
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 67, in eval_sequence
+    kpts_sim_t = per_kpt_sim[t] * np.stack([keypoint_visibilities[t]==occ_lvl]*len(tracker_ids_t), axis=1)
+  File "<__array_function__ internals>", line 180, in stack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 422, in stack
+    raise ValueError('need at least one array to stack')
+ValueError: need at least one array to stack
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 70, in eval_sequence
+    kpts_sim_t = per_kpt_sim[t] * np.stack([keypoint_visibilities[t]==occ_lvl]*len(tracker_ids_t), axis=1)
+  File "<__array_function__ internals>", line 180, in stack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 422, in stack
+    raise ValueError('need at least one array to stack')
+ValueError: need at least one array to stack
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 70, in eval_sequence
+    kpts_sim_t = per_kpt_sim[t] * np.stack([keypoint_visibilities[t]==occ_lvl]*len(tracker_ids_t), axis=1)
+  File "<__array_function__ internals>", line 180, in stack
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/site-packages/numpy/core/shape_base.py", line 422, in stack
+    raise ValueError('need at least one array to stack')
+ValueError: need at least one array to stack
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 78, in eval_sequence
+    dist_t[gt_ids_t] = mask.mean(-1)[:0]
+ValueError: shape mismatch: value array of shape (0,5) could not be broadcast to indexing result of shape (4,205)
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 78, in eval_sequence
+    dist_t[gt_ids_t] = mask.mean(-1)[:0]
+ValueError: shape mismatch: value array of shape (0,5) could not be broadcast to indexing result of shape (4,205)
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 79, in eval_sequence
+    dist_t[:, tracker_ids_t] = mask.mean(-1)[:,0]
+ValueError: shape mismatch: value array of shape (4,) could not be broadcast to indexing result of shape (24,5)
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/ospa2.py", line 78, in eval_sequence
+    dist_t[gt_ids_t] = 1- mask.mean(-1)[:,0]
+ValueError: shape mismatch: value array of shape (4,) could not be broadcast to indexing result of shape (4,205)
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 183, in eval_sequence
+    seq_res[cls][met_name] = metric.eval_sequence(data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/metrics/hota_pose.py", line 107, in eval_sequence
+    keypoint_distances = data['keypoint_distances'][t]
+KeyError: 'keypoint_distances'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+KeyError: 'keypoint_distances'
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 470, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 261, in _load_raw_file
+    with open(os.path.join(self.all_labels_fol, "labels_2d_stitched", seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_stitched/cubberly-auditorium-2019-04-22_1_image0.json'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_stitched/cubberly-auditorium-2019-04-22_1_image0.json'
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 506, in get_raw_seq_data
+    ious = matrix_iou(gt_boxes_w_kpts, gt_boxes_wo_kpts) > UNLABELED_VS_LABELED_IOU_THRESHOLD
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 46, in matrix_iou
+    m = Y.shape[1]
+AttributeError: 'list' object has no attribute 'shape'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+AttributeError: 'list' object has no attribute 'shape'
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 519, in get_raw_seq_data
+    ious = matrix_iou(gt_boxes_wo_kpts, tracker_boxes) > UNLABELED_VS_PREDS_IOU_THRESHOLD
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 39, in matrix_iou
+    if not np.any(np.any(X[2:4, :] > X[0:2, :])):
+TypeError: list indices must be integers or slices, not tuple
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+TypeError: list indices must be integers or slices, not tuple
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 521, in get_raw_seq_data
+    ious = matrix_iou(gt_boxes_wo_kpts, tracker_boxes) > UNLABELED_VS_PREDS_IOU_THRESHOLD
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 39, in matrix_iou
+    if not np.any(np.any(X[2:4, :] > X[0:2, :])):
+TypeError: list indices must be integers or slices, not tuple
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+TypeError: list indices must be integers or slices, not tuple
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 471, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 262, in _load_raw_file
+    with open(os.path.join(self.all_labels_fol, label_ver, seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/cubberly-auditorium-2019-04-22_1_image0.json'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 471, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 262, in _load_raw_file
+    with open(os.path.join(f"{self.all_labels_fol}{label_ver}", seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/cubberly-auditorium-2019-04-22_1_image0.json'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 471, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 262, in _load_raw_file
+    with open(os.path.join(f"{self.all_labels_fol}{label_ver}", seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels_stitched/cubberly-auditorium-2019-04-22_1_image0.json'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 471, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 262, in _load_raw_file
+    with open(os.path.join(f"{self.all_labels_fol}{label_ver}", seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels_2d_stitched/cubberly-auditorium-2019-04-22_1_image0.json'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 471, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 262, in _load_raw_file
+    with open(os.path.join(f"{self.all_labels_fol}{label_ver}", seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels_2d/cubberly-auditorium-2019-04-22_1_image0.json'
+
+
+
+
+
+JRDBPose
+json_tracks
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 81, in evaluate
+    res[curr_seq] = eval_sequence(curr_seq, dataset, tracker, class_list, metrics_list,
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 16, in wrap
+    result = f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 471, in get_raw_seq_data
+    raw_gt_data = self._load_raw_file(tracker, seq, is_gt=True)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 262, in _load_raw_file
+    with open(os.path.join(self.all_labels_fol, label_ver, seq), "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_stitched/cubberly-auditorium-2019-04-22_1_image0.json'
+
+
+
+
+
+JRDBPose
+json
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 472, in get_raw_seq_data
+    raw_tracker_data = self._load_raw_file(tracker, seq, is_gt=False)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 282, in _load_raw_file
+    image_data[im_id]['annotations'].append(ann)
+KeyError: 0
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+KeyError: 0
+
+
+
+
+
+JRDBPose
+json
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 176, in eval_sequence
+    raw_data = dataset.get_raw_seq_data(tracker, seq)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 515, in get_raw_seq_data
+    ious = matrix_iou(gt_boxes_w_kpts, gt_boxes_wo_kpts) > UNLABELED_VS_LABELED_IOU_THRESHOLD
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 44, in matrix_iou
+    m = Y.shape[1]
+AttributeError: 'list' object has no attribute 'shape'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+AttributeError: 'list' object has no attribute 'shape'
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 180, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 154, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/_base_dataset.py", line 300, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+posetrack.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: gates-to-clark-2019-02-28_0.json, frame: 4, ids: 1 2 3 4)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+posetrack.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: gates-to-clark-2019-02-28_0.json, frame: 4, ids: 1 2 3 4)
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 180, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 154, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/_base_dataset.py", line 300, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+posetrack.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: gates-to-clark-2019-02-28_0.json, frame: 4, ids: 1 2 3 4)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+posetrack.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: gates-to-clark-2019-02-28_0.json, frame: 4, ids: 1 2 3 4)
+
+
+
+
+
+JRDBPose
+json_tracks
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/_timing.py", line 59, in wrap
+    return f(*args, **kw)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 180, in eval_sequence
+    data = dataset.get_preprocessed_seq_data(raw_data, cls)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/jrdbpose.py", line 154, in get_preprocessed_seq_data
+    self._check_unique_ids(raw_data)
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/datasets/_base_dataset.py", line 300, in _check_unique_ids
+    raise TrackEvalException(exc_str)
+posetrack.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: gates-to-clark-2019-02-28_0.json, frame: 4, ids: 1 2 3 4)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tho/GoogleDrive/code/jdrb_toolkit_official/pose_eval/posetrack/eval.py", line 75, in evaluate
+    results = pool.map(_eval_sequence, seq_list)
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 364, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+  File "/home/tho/anaconda3/envs/jrdb/lib/python3.9/multiprocessing/pool.py", line 771, in get
+    raise self._value
+posetrack.utils.TrackEvalException: Tracker predicts the same ID more than once in a single timestep (seq: gates-to-clark-2019-02-28_0.json, frame: 4, ids: 1 2 3 4)
+
+
+
+
+

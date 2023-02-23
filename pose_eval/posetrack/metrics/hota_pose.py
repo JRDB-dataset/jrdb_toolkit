@@ -185,8 +185,8 @@ class HOTAKeypoints(_BaseMetric):
                     res['HOTA_TP'][a][j] += num_matches
 
                     res['HOTA_FN'][a][j] += num_gt_joints_t[j] - num_matches
-                    if num_gt_joints_t[j] - num_matches:
-                        print(num_gt_joints_t[j] - num_matches)
+                    # if num_gt_joints_t[j] - num_matches > 0:
+                    #     print(num_gt_joints_t[j] - num_matches)
                     res['HOTA_FP'][a][j] += num_det_joints_t[j] - num_matches
 
                     if num_matches > 0:
