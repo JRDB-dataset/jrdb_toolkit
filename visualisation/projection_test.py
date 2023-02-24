@@ -91,7 +91,8 @@ images = {
     "sensor_0": None,
 }
 
-config = {}
+config = {'upper':{},
+          'lower':{}}
 # subplot(r,c) provide the no. of rows and columns
 # fig = plt.figure(figsize=(15, 15))
 for i, loc in enumerate(TRAIN):
@@ -106,6 +107,7 @@ for i, loc in enumerate(TRAIN):
             'upper',
             'lower'
         ]:
+
             ## Lidar to ego
             L2E_trans = -np.asarray(global_config_dict['calibrated'][f'lidar_{lidar}_to_rgb']['translation']).reshape(
                 [3, 1])
@@ -139,17 +141,18 @@ for i, loc in enumerate(TRAIN):
             ego2cam = lidar2cam.dot(L2E_RT_inv)
             if i == 0:
                 print(sensor, f"lidar: {lidar}")
+
                 config[sensor] = {}
-                # config[lidar]['lidar2ego'] = lidar2ego.tolist()
-                # # config[lidar][sensor] ={}
-                # # config[lidar][sensor]['ego2cam'] = ego2cam.tolist()
+                config[lidar]['lidar2ego'] = lidar2ego.tolist()
+                config[lidar][sensor] = {}
+                config[lidar][sensor]['ego2cam'] = ego2cam.tolist()
                 # config[sensor]['ego2cam'] = ego2cam.tolist()
-                # config[sensor]['D'] = D.tolist()
-                # config[sensor]['K'] = K.tolist()
-                config[sensor]['R'] = lidar2cam[:3,:3].tolist()
-                config[sensor]['T'] = lidar2cam[:3,3].tolist()
                 config[sensor]['D'] = D.tolist()
                 config[sensor]['K'] = K.tolist()
+                # config[sensor]['R'] = lidar2cam[:3,:3].tolist()
+                # config[sensor]['T'] = lidar2cam[:3,3].tolist()
+                # config[sensor]['D'] = D.tolist()
+                # config[sensor]['K'] = K.tolist()
 
             pcd = o3d.io.read_point_cloud(f"{data_root}/pointclouds/{lidar}_velodyne/{loc}/000000.pcd")
             image = cv2.imread(f"{data_root}/images/image_{sensor[-1]}/{loc}/000000.jpg")
