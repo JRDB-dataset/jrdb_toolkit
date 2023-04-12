@@ -40,63 +40,6 @@ TRAIN_LOCATIONS = [
     'tressider-2019-03-16_1',
     'tressider-2019-04-26_2'
 ]
-# ap: 42.3781      cubberly-auditorium-2019-04-22_1
-# ap: 51.9297      discovery-walk-2019-02-28_0
-# ap: 66.4338      discovery-walk-2019-02-28_1
-# ap: 24.9668      food-trucks-2019-02-12_0
-# ap: 66.5530      gates-ai-lab-2019-04-17_0
-# ap: 53.7527      gates-basement-elevators-2019-01-17_0
-# ap: 57.6190      gates-foyer-2019-01-17_0
-# ap: 66.2157      gates-to-clark-2019-02-28_0
-# ap: 54.7739      hewlett-class-2019-01-23_0
-# ap: 60.2489      hewlett-class-2019-01-23_1
-# ap: 53.1290      huang-2-2019-01-25_1
-# ap: 57.9137      huang-intersection-2019-01-22_0
-# ap: 26.3576      indoor-coupa-cafe-2019-02-06_0
-# ap: 61.7608      lomita-serra-intersection-2019-01-30_0
-# ap: 49.7987      meyer-green-2019-03-16_1
-# ap: 45.0746      nvidia-aud-2019-01-25_0
-# ap: 13.0399      nvidia-aud-2019-04-18_1
-# ap: 55.2608      nvidia-aud-2019-04-18_2
-# ap: 29.8957      outdoor-coupa-cafe-2019-02-06_0
-# ap: 47.9586      quarry-road-2019-02-28_0
-# ap: 55.0820      serra-street-2019-01-30_0
-# ap: 65.7004      stlc-111-2019-04-19_1
-# ap: 58.4158      stlc-111-2019-04-19_2
-# ap: 61.6389      tressider-2019-03-16_2
-# ap: 33.5981      tressider-2019-04-26_0
-# ap: 51.3299      tressider-2019-04-26_1
-# ap: 27.5850      tressider-2019-04-26_3
-# Overall: 49.57077286932928
-# (jrdb) tho@tho:~/GoogleDrive/code/jdrb_toolkit_official$ python pose_eval/pose_eval.py --input_path /home/tho/GoogleDrive/code/yolopose/runs/detect/exp38/json_preds_JRDB --pose_path /home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_pose_stitched_coco --box_path /home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_stitched --metric OSPA
-# ospa: 0.5374     cubberly-auditorium-2019-04-22_1
-# ospa: 0.7052     discovery-walk-2019-02-28_0
-# ospa: 0.4849     discovery-walk-2019-02-28_1
-# ospa: 0.3254     food-trucks-2019-02-12_0
-# ospa: 0.3986     gates-ai-lab-2019-04-17_0
-# ospa: 0.5265     gates-basement-elevators-2019-01-17_0
-# ospa: 0.4870     gates-foyer-2019-01-17_0
-# ospa: 0.4828     gates-to-clark-2019-02-28_0
-# ospa: 0.4498     hewlett-class-2019-01-23_0
-# ospa: 0.4544     hewlett-class-2019-01-23_1
-# ospa: 0.4898     huang-2-2019-01-25_1
-# ospa: 0.5281     huang-intersection-2019-01-22_0
-# ospa: 0.4792     indoor-coupa-cafe-2019-02-06_0
-# ospa: 0.5299     lomita-serra-intersection-2019-01-30_0
-# ospa: 0.5757     meyer-green-2019-03-16_1
-# ospa: 0.4868     nvidia-aud-2019-01-25_0
-# ospa: 0.4725     nvidia-aud-2019-04-18_1
-# ospa: 0.6714     nvidia-aud-2019-04-18_2
-# ospa: 0.6056     outdoor-coupa-cafe-2019-02-06_0
-# ospa: 0.5831     quarry-road-2019-02-28_0
-# ospa: 0.6799     serra-street-2019-01-30_0
-# ospa: 0.4429     stlc-111-2019-04-19_1
-# ospa: 0.5630     stlc-111-2019-04-19_2
-# ospa: 0.5451     tressider-2019-03-16_2
-# ospa: 0.5236     tressider-2019-04-26_0
-# ospa: 0.4307     tressider-2019-04-26_1
-# ospa: 0.4972     tressider-2019-04-26_3
-# Overall: 0.5093224196179038
 TEST_LOCATIONS = [
     'cubberly-auditorium-2019-04-22_1',
     'discovery-walk-2019-02-28_0',
@@ -759,11 +702,7 @@ if __name__ == "__main__":
     parser.add_argument('--metric', choices=['OSPA', 'AP'])
     args = parser.parse_args()
     global LOCATIONS
-    if "stitched" not in args.pose_path:
-        LOCATIONS = TEST_INDI_LOCATIONS
-    else:
-        LOCATIONS = TEST_LOCATIONS
-
+    LOCATIONS = TRAIN_LOCATIONS
     if args.metric == 'OSPA':
         compute_ospa_pose(pred_path=args.input_path,
                           box_path=args.box_path,
