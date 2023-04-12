@@ -56,27 +56,14 @@ class OSPA2(_BaseMetric):
         for t, (gt_ids_t, tracker_ids_t,), in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
             if len(tracker_ids_t) == 0:
                 continue
-            # if occ_lvl < 3:
-            #     kpts_sim_t = similarity_scores[t] * (keypoint_visibilities[t] == occ_lvl)[:, np.newaxis, :]
-            #     kpts_sim_t[kpts_sim_t == 0] = 1
-            #     dist = np.mean(1 - kpts_sim_t,axis=-1)
-            # else:
-            #     oks_sim_t = deepcopy(similarity_scores[t])
-            #     dist = 1 - oks_sim_t
             for occ_lvl in range(4):
                 if occ_lvl < 3:
                     mask = np.stack([keypoint_visibilities[t]==occ_lvl]*len(tracker_ids_t), axis=1)
                     kpts_sim_t = per_kpt_sim[t] * mask
-                    # kpts_sim_t = per_kpt_sim[t][mask]
-                    # kpts_sim_t[kpts_sim_t ==0] = 1
-                    # dist = np.sum(1 - kpts_sim_t,axis=-1)/kpts_sim_t.shape[-1]
                     dist = (1 - kpts_sim_t) * mask
-                    # dist[dist == 1] = 0
                     dist = np.sum(dist,axis=-1)/np.maximum(1,np.sum(dist>0,axis=-1))
-                    # dist = np.sum(dist,axis=-1)/np.sum(np.maximum(1, dist>0), axis=-1)
                     dist_t = np.zeros((data['num_gt_ids'], data['num_tracker_ids'],))
 
-                    # dist_t[gt_ids_t] = 1- mask.mean(-1,keepdims=True)[:,0]
                     dist_t[gt_ids_t] = 1
                     dist_t[:, tracker_ids_t] = 1
                     dist_t[gt_ids_t[:, None], tracker_ids_t] = dist

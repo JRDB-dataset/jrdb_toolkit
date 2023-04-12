@@ -142,8 +142,8 @@ class JRDBPose(_BaseDataset):
     @staticmethod
     def get_default_dataset_config():
         default_config = {
-            'GT_FOLDER': "/home/tho/datasets/JRDB2022/test_dataset_without_labels/labels/labels_2d_pose_stitched_coco/",
-            'TRACKERS_FOLDER': "/home/tho/GoogleDrive/JRDBPose_experiments/Tracking/OCTrack/Stitched/scratch/json_tracks/",
+            'GT_FOLDER': "/path/to/JRDB2022/train_dataset_with_activity/labels/labels_2d_pose_stitched_coco",
+            'TRACKERS_FOLDER': "/path/to/tracker/folder",
             # Trackers location
             "PRINT_CONFIG": True,
             "ASSURE_SINGLE_TRACKER": False
