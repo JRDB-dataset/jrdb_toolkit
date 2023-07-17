@@ -1,13 +1,14 @@
 from ._base_metric import _BaseMetric
 from .. import _timing
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.optimize import linear_sum_assignment
 
 class DE(_BaseMetric):
     """Class which simply counts the number of tracker and gt detections and ids."""
     def __init__(self, config=None):
         super().__init__()
-        self.loss_fields = ['FDE','ADE']
+        self.loss_fields = ['EFA', 'EFA_CARD', 'EFA_LOC']
         self.fields = self.loss_fields
         self.summary_fields = self.fields
 
@@ -21,45 +22,32 @@ class DE(_BaseMetric):
 
         m=data['num_gt_ids']
         n=data['num_tracker_ids']
-        dist_sum = np.zeros((m,n))
 
-        min_time_gt = len(data['gt_ids'])
-        ids_at_first=data['gt_ids'][0]
-        for ind, i in enumerate(data['gt_ids']):
-            if len(i)!=len(ids_at_first):
-                min_time_gt = ind
-                break
-        
-        min_time_tracker = len(data['tracker_ids'])
-        ids_at_first=data['tracker_ids'][0]
-        for ind, i in enumerate(data['tracker_ids']):
-            if len(i)!=len(ids_at_first):
-                min_time_tracker = ind
-                break
-        
-        if min_time_gt!=min_time_tracker:
-            print(min_time_tracker, min_time_gt)
-        min_time = min(min_time_gt, min_time_tracker)
+        c = 5 # the penalty coefficient and cut_off distance
 
-        for t1, (gt_ids_t, tracker_ids_t) in enumerate(zip(data['gt_ids'][:min_time], data['tracker_ids'][:min_time])):
-            dist = - data['similarity_scores'][t1]
-            dist_sum += dist
-        trk_dist = dist_sum / min_time
-        match_rows, match_cols = linear_sum_assignment(trk_dist)
+        counts_nop = np.zeros((data['num_gt_ids'], data['num_tracker_ids']))
+        dist_sum_nop = np.zeros((data['num_gt_ids'],data['num_tracker_ids']))
 
-        if min_time_gt>min_time:
-            for t2, (gt_ids_t, tracker_ids_t) in enumerate(zip(data['gt_ids'][min_time:min_time_gt], data['tracker_ids'][min_time:min_time_gt])):
-                dist = - data['similarity_scores'][t1+t2]
-                dist_sum += dist
-            trk_dist = dist_sum / min_time_gt
-            ade = np.mean(trk_dist[match_rows,match_cols])
-            fde = np.mean(np.linalg.norm(data['gt_dets_3d'][min_time_gt-1][match_rows]-data['tracker_dets_3d'][-1][match_cols]), axis=1)
-        else:
-            ade = np.mean(trk_dist[match_rows,match_cols])
-            fde = np.mean(np.linalg.norm(data['gt_dets_3d'][min_time-1][match_rows]-data['tracker_dets_3d'][min_time-1][match_cols], axis=1))
+        for t, (gt_ids_t, tracker_ids_t) in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
+
+            dist = - data['similarity_scores'][t]
+            dist_t_nop = np.zeros((data['num_gt_ids'], data['num_tracker_ids'],))
+
+            dist_c = np.minimum(dist,c) # cut_off distance
+
+            dist_t_nop[gt_ids_t] = c
+            counts_nop[gt_ids_t] += 1
+            dist_t_nop[gt_ids_t[:, None], tracker_ids_t] = dist_c
+
+            dist_sum_nop += dist_t_nop
+
+        counts_nop[counts_nop == 0] = 1
+        trk_dist_nop = dist_sum_nop / counts_nop
+        match_rows, match_cols = linear_sum_assignment(trk_dist_nop)
         
-        res['ADE']=ade
-        res['FDE']=fde
+        res['EFA_LOC'] = np.sum(trk_dist_nop[match_rows,match_cols]) / max(m,n)
+        res['EFA_CARD'] = c * np.absolute(m-n) / max(m,n)
+        res['EFA'] = res['EFA_LOC'] + res['EFA_CARD']
 
         return res
 

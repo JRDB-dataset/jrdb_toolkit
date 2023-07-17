@@ -390,22 +390,6 @@ class _BaseDataset(ABC):
                 dist = np.sqrt((objs[o][0]-hyps[h][0])**2+(objs[o][1]-hyps[h][1])**2)
                 C[o, h] = dist
         return C
-    
-    @staticmethod
-    def _calculate_traj_distance_final_3d(
-        trajs1, trajs2,
-    ):
-        """ Calculates the FDE (average displacement error) between two arrays of trajectories.
-        """
-        objs = np.atleast_2d(trajs1).astype(float)
-        hyps = np.atleast_2d(trajs2).astype(float)
-        if objs.size == 0 or hyps.size == 0 or np.isnan(hyps).any() or np.isnan(objs).any():
-            return np.zeros((objs.shape[0], hyps.shape[0]))
-        assert objs.shape[1] == 2
-        assert hyps.shape[1] == 2
-
-        C = np.ones((objs.shape[0], hyps.shape[0])) * np.sqrt((objs[-1][0]-hyps[-1][0])**2+(objs[-1][1]-hyps[-1][1])**2)
-        return C
 
     @staticmethod
     def clip_polygon(box1, box2):

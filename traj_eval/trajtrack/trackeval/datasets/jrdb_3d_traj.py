@@ -284,7 +284,7 @@ class JRDB3DTraj(_BaseDataset):
             raise (TrackEvalException('Class %s is not evaluatable' % cls))
         cls_id = self.class_name_to_class_id[cls]
 
-        data_keys = ['gt_ids', 'tracker_ids', 'gt_dets', 'gt_dets_3d', 'tracker_dets', 'tracker_dets_3d','tracker_confidences', 'similarity_scores', 'similarity_fde_scores']
+        data_keys = ['gt_ids', 'tracker_ids', 'gt_dets', 'gt_dets_3d', 'tracker_dets', 'tracker_dets_3d','tracker_confidences', 'similarity_scores']
         data = {key: [None] * raw_data['num_timesteps'] for key in data_keys}
         unique_gt_ids = []
         unique_tracker_ids = []
@@ -310,7 +310,6 @@ class JRDB3DTraj(_BaseDataset):
             tracker_confidences = raw_data['tracker_confidences'][t][tracker_class_mask]
             #print(raw_data['similarity_scores'][t])
             similarity_scores = raw_data['similarity_scores'][t][gt_class_mask, :][:, tracker_class_mask]
-            similarity_fde_scores = raw_data['similarity_fde_scores'][t][gt_class_mask, :][:, tracker_class_mask]
             # Match tracker and gt dets (with hungarian algorithm) and remove tracker dets which match with gt dets
             # which are labeled as truncated, occluded, or belonging to a distractor class.
             to_remove_matched = np.array([], np.int)
@@ -367,7 +366,6 @@ class JRDB3DTraj(_BaseDataset):
             data['gt_dets'][t] = gt_dets[gt_to_keep_mask, :]
             data['gt_dets_3d'][t] = gt_dets_3d[gt_to_keep_mask, :]
             data['similarity_scores'][t] = similarity_scores[gt_to_keep_mask]
-            data['similarity_fde_scores'][t] = similarity_fde_scores[gt_to_keep_mask]
             unique_gt_ids += list(np.unique(data['gt_ids'][t]))
             unique_tracker_ids += list(np.unique(data['tracker_ids'][t]))
             num_tracker_dets += len(data['tracker_ids'][t])
@@ -402,8 +400,7 @@ class JRDB3DTraj(_BaseDataset):
 
     def _calculate_similarities(self, gt_dets_t, tracker_dets_t):
         if gt_dets_t.shape[1]==2: # this number should be checked
-            similarity_scores = - self._calculate_traj_distance_3d(gt_dets_t, tracker_dets_t)
-            similarity_fde_scores = - self._calculate_traj_distance_final_3d(gt_dets_t, tracker_dets_t)
+            similarity_scores = - self._calculate_traj_distance_3d(gt_dets_t, tracker_dets_t) # minus converts distance to similarity
         else:
             raise NotImplementedError
-        return similarity_scores, similarity_fde_scores
+        return similarity_scores

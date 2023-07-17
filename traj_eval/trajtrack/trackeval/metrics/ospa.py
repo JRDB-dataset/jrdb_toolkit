@@ -19,11 +19,12 @@ class OSPA(_BaseMetric):
         for field in self.fields:
             res[field] = 0
 
-        c = 10 # the penalty coefficient
+        c = 5 # the penalty coefficient and cut_off distance
         p = 1 # the power
 
         counts = np.zeros((data['num_gt_ids'], data['num_tracker_ids']))
         dist_sum = np.zeros((data['num_gt_ids'],data['num_tracker_ids']))
+
         for t, (gt_ids_t, tracker_ids_t) in enumerate(zip(data['gt_ids'], data['tracker_ids'])):
 
             dist = - data['similarity_scores'][t]
