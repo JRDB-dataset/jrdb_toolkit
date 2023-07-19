@@ -8,7 +8,7 @@ class DE(_BaseMetric):
     """Class which simply counts the number of tracker and gt detections and ids."""
     def __init__(self, config=None):
         super().__init__()
-        self.loss_fields = ['EFA', 'EFA_CARD', 'EFA_LOC']
+        self.loss_fields = ['EFE', 'EFE_CARD', 'EFE_LOC']
         self.fields = self.loss_fields
         self.summary_fields = self.fields
 
@@ -45,9 +45,9 @@ class DE(_BaseMetric):
         trk_dist_nop = dist_sum_nop / counts_nop
         match_rows, match_cols = linear_sum_assignment(trk_dist_nop)
         
-        res['EFA_LOC'] = np.sum(trk_dist_nop[match_rows,match_cols]) / max(m,n)
-        res['EFA_CARD'] = c * np.absolute(m-n) / max(m,n)
-        res['EFA'] = res['EFA_LOC'] + res['EFA_CARD']
+        res['EFE_LOC'] = np.sum(trk_dist_nop[match_rows,match_cols]) / max(m,n)
+        res['EFE_CARD'] = c * np.absolute(m-n) / max(m,n)
+        res['EFE'] = res['EFE_LOC'] + res['EFE_CARD']
 
         return res
 
