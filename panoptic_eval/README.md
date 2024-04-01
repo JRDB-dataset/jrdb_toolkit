@@ -2,7 +2,7 @@
 
 This repo contain code for [JRDB dataset and benchmark](https://jrdb.erc.monash.edu/panotrack)
 
-Note that the predictions must follow the format of the ground truth labels. The predictions must be in the form of a json file with the following format:
+Note that the predictions must be in the form of a json file with the following format, file names and structure must be the same as the ground truth labels.:
 
 ```json
 {
@@ -38,14 +38,30 @@ Note that the predictions must follow the format of the ground truth labels. The
 }
 ```
 
-For Closed-world and open-world panoptic segmentation evaluation, run:
+#### For Closed-world panoptic segmentation evaluation, run:
 
 ```bash
-    python panoptic_eval/run_jrdb_panoseg.py
+python panoptic_eval/run_jrdb_panoseg.py
     --TRACKERS_FOLDER /path/to/predictions_2d_panoptic_CW
     --GT_FOLDER /path/to/labels_2d_panoptic_CW
     --split val 
-    --eval_OW False # False for closed-world evaluation, True for open-world evaluation
+    --eval_OW False # False for closed-world evaluation
     --eval_stitched False # False for individual frames, True for stitched frames
     --run_parallel False # False for single process, True for parallel processing
 ```
+
+#### For Closed-world panotic tracking evaluation, run:
+
+```bash
+python panoptic_eval/TrackEval/scripts/run_jrdb_panotrack.py
+    --GT_FOLDER /path/to/labels_2d_panoptic_CW
+    --TRACKERS_FOLDER /path/to/predictions_2d_panoptic_CW
+    --EVAL_OW False # False for closed-world evaluation
+    --EVAL_STITCHED False  # False for individual frames, True for stitched frames
+    --SPLIT_TO_EVAL "val" 
+    --RUN_PARALLEL False # False for single process, True for parallel processing
+```
+
+#### For Open-world panoptic segmentation and tracking evaluation, please submit your results to the JRDB-PanoTrack challenge website at [JRDB-PanoTrack](https://jrdb.erc.monash.edu/panotrack)
+
+The leaderboard will be available and submission will be allowed on 15th April 2024
