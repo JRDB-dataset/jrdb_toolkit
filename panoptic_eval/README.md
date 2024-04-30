@@ -45,7 +45,7 @@ Note that the predictions must be in the form of a json file with the following 
 
 <details open>
 <summary><font size="4">
-Get OSPA result for panoptic segmentation.
+Get OSPA result for panoptic segmentation and tracking.
 </font></summary>
 
 #### For Closed-world panoptic segmentation evaluation, run:
