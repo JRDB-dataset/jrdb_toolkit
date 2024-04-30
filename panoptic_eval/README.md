@@ -2,6 +2,10 @@
 
 This repo contain code for [JRDB dataset and benchmark](https://jrdb.erc.monash.edu/panotrack)
 
+<details open>
+<summary><font size="4">
+Predictions format
+</font></summary>
 Note that the predictions must be in the form of a json file with the following format, file names and structure must be the same as the ground truth labels.:
 
 ```json
@@ -37,6 +41,12 @@ Note that the predictions must be in the form of a json file with the following 
   ]
 }
 ```
+</details>
+
+<details open>
+<summary><font size="4">
+Get OSPA result for panoptic segmentation.
+</font></summary>
 
 #### For Closed-world panoptic segmentation evaluation, run:
 
@@ -61,6 +71,14 @@ python panoptic_eval/TrackEval/scripts/run_jrdb_panotrack.py
     --SPLIT_TO_EVAL "val" 
     --RUN_PARALLEL False # False for single process, True for parallel processing
 ```
+</details>
+
+<details open>
+<summary><font size="4">
+Get PQ result for panoptic segmentation.
+</font></summary>
+Check detail information in ./Panoptic_quality folder.
+</details>
 
 #### For Open-world panoptic segmentation and tracking evaluation, please submit your results to the JRDB-PanoTrack challenge website at [JRDB-PanoTrack](https://jrdb.erc.monash.edu/panotrack)
 
